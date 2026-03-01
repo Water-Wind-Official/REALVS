@@ -28,12 +28,85 @@ const nodeTypes: NodeTypes = {
 function CustomNode({ data, selected }: { data: any; selected: boolean }) {
   const nodeColor = data.category === 'input' ? 'bg-green-500' : 
                    data.category === 'output' ? 'bg-amber-500' : 
-                   data.category === 'control' ? 'bg-purple-500' : 'bg-cyan-500'
+                   data.category === 'control' ? 'bg-purple-500' : 
+                   data.category === 'file' ? 'bg-blue-500' :
+                   data.category === 'gui' ? 'bg-pink-500' :
+                   data.category === 'utility' ? 'bg-indigo-500' :
+                   data.category === 'network' ? 'bg-orange-500' : 'bg-cyan-500'
+
+  const [value, setValue] = React.useState(data.value || '')
+
+  const onDragStart = (event: React.DragEvent) => {
+    // Store the node data for potential deletion
+    const nodeData = {
+      id: data.id,
+      label: data.label,
+      category: data.category
+    }
+    event.dataTransfer.setData('application/reactflow', JSON.stringify(nodeData))
+    event.dataTransfer.effectAllowed = 'move'
+  }
+
+  const updateNodeValue = (newValue: string) => {
+    setValue(newValue)
+    // Update the node data in the store
+    const { nodes, setNodes } = useVisualScriptingStore.getState()
+    const updatedNodes = nodes.map(node => 
+      node.id === data.id ? { ...node, data: { ...node.data, value: newValue } } : node
+    )
+    setNodes(updatedNodes)
+  }
+
+  const renderValueInput = () => {
+    if (data.label === 'String Value') {
+      return (
+        <input
+          type="text"
+          value={value}
+          onChange={(e) => updateNodeValue(e.target.value)}
+          placeholder="Enter text..."
+          className="w-full px-2 py-1 text-xs border border-gray-300 rounded"
+          onClick={(e) => e.stopPropagation()}
+        />
+      )
+    }
+    if (data.label === 'Number Value') {
+      return (
+        <input
+          type="number"
+          value={value}
+          onChange={(e) => updateNodeValue(e.target.value)}
+          placeholder="Enter number..."
+          className="w-full px-2 py-1 text-xs border border-gray-300 rounded"
+          onClick={(e) => e.stopPropagation()}
+        />
+      )
+    }
+    if (data.label === 'Boolean Value') {
+      return (
+        <select
+          value={value}
+          onChange={(e) => updateNodeValue(e.target.value)}
+          className="w-full px-2 py-1 text-xs border border-gray-300 rounded"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <option value="">Select...</option>
+          <option value="True">True</option>
+          <option value="False">False</option>
+        </select>
+      )
+    }
+    return null
+  }
 
   return (
-    <div className={`px-4 py-2 shadow-lg rounded-lg bg-white border-2 ${
-      selected ? 'border-blue-500' : 'border-gray-200'
-    } min-w-[150px] hover:shadow-xl transition-shadow`}>
+    <div 
+      className={`px-4 py-2 shadow-lg rounded-lg bg-white border-2 ${
+        selected ? 'border-blue-500' : 'border-gray-200'
+      } min-w-[150px] hover:shadow-xl transition-shadow cursor-move`}
+      draggable
+      onDragStart={onDragStart}
+    >
       {data.inputs && data.inputs.length > 0 && (
         <div className="absolute -left-1 top-0 flex flex-col gap-2">
           {data.inputs.map((input: string, i: number) => (
@@ -53,6 +126,9 @@ function CustomNode({ data, selected }: { data: any; selected: boolean }) {
         <div className={`w-3 h-3 rounded-full ${nodeColor}`} />
         <span className="text-sm font-medium">{data.label}</span>
       </div>
+      
+      {/* Value input for value nodes */}
+      {renderValueInput()}
       
       {data.inputs && data.inputs.length > 0 && (
         <div className="mt-2 text-xs text-gray-500">
@@ -120,6 +196,21 @@ export function VisualScriptingEditor() {
         return
       }
 
+      // Check if dropping on the library area (left sidebar)
+      const libraryBounds = event.currentTarget.getBoundingClientRect()
+      const isDroppingOnLibrary = event.clientX < libraryBounds.left + 256 // 256px is library width
+
+      if (isDroppingOnLibrary) {
+        // This is a node being dragged to the library for deletion
+        const nodeData = JSON.parse(type)
+        if (nodeData.id && nodeData.id.startsWith('node-')) {
+          // Remove the node from the canvas
+          setLocalNodes((nds) => nds.filter(n => n.id !== nodeData.id))
+          setLocalEdges((eds) => eds.filter(e => e.source !== nodeData.id && e.target !== nodeData.id))
+        }
+        return
+      }
+
       const reactFlowBounds = reactFlowWrapper.current?.getBoundingClientRect()
       if (!reactFlowBounds) return
 
@@ -146,7 +237,7 @@ export function VisualScriptingEditor() {
 
       setLocalNodes((nds) => nds.concat(newNode))
     },
-    [setLocalNodes, getViewport]
+    [setLocalNodes, setLocalEdges, getViewport]
   )
 
   const handleClearCanvas = useCallback(() => {

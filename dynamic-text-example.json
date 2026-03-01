@@ -1,0 +1,302 @@
+{
+  "nodes": [
+    {
+      "id": "start-1",
+      "type": "customNode",
+      "position": { "x": 100, "y": 100 },
+      "data": {
+        "id": "start-1",
+        "label": "Start",
+        "category": "control",
+        "inputs": [],
+        "outputs": ["flow"],
+        "description": "Entry point of script"
+      }
+    },
+    {
+      "id": "window-1",
+      "type": "customNode", 
+      "position": { "x": 300, "y": 50 },
+      "data": {
+        "id": "window-1",
+        "label": "Tkinter Window",
+        "category": "gui",
+        "inputs": ["title", "size"],
+        "outputs": ["window"],
+        "description": "Create tkinter window"
+      }
+    },
+    {
+      "id": "title-1",
+      "type": "customNode",
+      "position": { "x": 50, "y": 200 },
+      "data": {
+        "id": "title-1", 
+        "label": "Variable",
+        "category": "data",
+        "inputs": ["value"],
+        "outputs": ["variable"],
+        "description": "Store a value in a variable"
+      }
+    },
+    {
+      "id": "title-text-1",
+      "type": "customNode",
+      "position": { "x": 50, "y": 300 },
+      "data": {
+        "id": "title-text-1",
+        "label": "Concatenate",
+        "category": "data", 
+        "inputs": ["a", "b"],
+        "outputs": ["result"],
+        "description": "Join two strings"
+      }
+    },
+    {
+      "id": "size-1",
+      "type": "customNode",
+      "position": { "x": 250, "y": 300 },
+      "data": {
+        "id": "size-1",
+        "label": "Variable",
+        "category": "data",
+        "inputs": ["value"], 
+        "outputs": ["variable"],
+        "description": "Store a value in a variable"
+      }
+    },
+    {
+      "id": "label-1",
+      "type": "customNode",
+      "position": { "x": 450, "y": 50 },
+      "data": {
+        "id": "label-1",
+        "label": "Tkinter Label", 
+        "category": "gui",
+        "inputs": ["window", "text", "position"],
+        "outputs": ["label"],
+        "description": "Add label to window"
+      }
+    },
+    {
+      "id": "position-1",
+      "type": "customNode",
+      "position": { "x": 600, "y": 150 },
+      "data": {
+        "id": "position-1",
+        "label": "Variable",
+        "category": "data",
+        "inputs": ["value"],
+        "outputs": ["variable"], 
+        "description": "Store a value in a variable"
+      }
+    },
+    {
+      "id": "loop-1",
+      "type": "customNode",
+      "position": { "x": 100, "y": 400 },
+      "data": {
+        "id": "loop-1",
+        "label": "While Loop",
+        "category": "control",
+        "inputs": ["condition"],
+        "outputs": ["loop"],
+        "description": "Loop while condition is true"
+      }
+    },
+    {
+      "id": "counter-1",
+      "type": "customNode",
+      "position": { "x": 50, "y": 500 },
+      "data": {
+        "id": "counter-1",
+        "label": "Variable",
+        "category": "data",
+        "inputs": ["value"],
+        "outputs": ["variable"],
+        "description": "Store a value in a variable"
+      }
+    },
+    {
+      "id": "increment-1", 
+      "type": "customNode",
+      "position": { "x": 300, "y": 500 },
+      "data": {
+        "id": "increment-1",
+        "label": "Add",
+        "category": "data",
+        "inputs": ["a", "b"],
+        "outputs": ["result"],
+        "description": "Add two numbers"
+      }
+    },
+    {
+      "id": "update-text-1",
+      "type": "customNode",
+      "position": { "x": 450, "y": 450 },
+      "data": {
+        "id": "update-text-1",
+        "label": "Concatenate",
+        "category": "data",
+        "inputs": ["a", "b"],
+        "outputs": ["result"],
+        "description": "Join two strings"
+      }
+    },
+    {
+      "id": "sleep-1",
+      "type": "customNode",
+      "position": { "x": 650, "y": 400 },
+      "data": {
+        "id": "sleep-1",
+        "label": "Sleep",
+        "category": "utility",
+        "inputs": ["seconds"],
+        "outputs": [],
+        "description": "Pause execution"
+      }
+    },
+    {
+      "id": "mainloop-1",
+      "type": "customNode",
+      "position": { "x": 800, "y": 350 },
+      "data": {
+        "id": "mainloop-1",
+        "label": "Tkinter Main Loop",
+        "category": "gui", 
+        "inputs": ["window"],
+        "outputs": [],
+        "description": "Start tkinter event loop"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "start-1",
+      "target": "title-1",
+      "sourceHandle": "flow",
+      "targetHandle": "value"
+    },
+    {
+      "id": "e2", 
+      "source": "title-1",
+      "target": "title-text-1",
+      "sourceHandle": "variable",
+      "targetHandle": "a"
+    },
+    {
+      "id": "e3",
+      "source": "start-1", 
+      "target": "size-1",
+      "sourceHandle": "flow",
+      "targetHandle": "value"
+    },
+    {
+      "id": "e4",
+      "source": "title-text-1",
+      "target": "window-1", 
+      "sourceHandle": "result",
+      "targetHandle": "title"
+    },
+    {
+      "id": "e5",
+      "source": "size-1",
+      "target": "window-1",
+      "sourceHandle": "variable", 
+      "targetHandle": "size"
+    },
+    {
+      "id": "e6",
+      "source": "window-1",
+      "target": "label-1",
+      "sourceHandle": "window",
+      "targetHandle": "window"
+    },
+    {
+      "id": "e7",
+      "source": "start-1",
+      "target": "position-1",
+      "sourceHandle": "flow", 
+      "targetHandle": "value"
+    },
+    {
+      "id": "e8",
+      "source": "position-1",
+      "target": "label-1",
+      "sourceHandle": "variable",
+      "targetHandle": "position"
+    },
+    {
+      "id": "e9",
+      "source": "start-1",
+      "target": "counter-1", 
+      "sourceHandle": "flow",
+      "targetHandle": "value"
+    },
+    {
+      "id": "e10",
+      "source": "start-1",
+      "target": "loop-1",
+      "sourceHandle": "flow",
+      "targetHandle": "condition"
+    },
+    {
+      "id": "e11",
+      "source": "loop-1",
+      "target": "increment-1",
+      "sourceHandle": "loop",
+      "targetHandle": "a"
+    },
+    {
+      "id": "e12",
+      "source": "counter-1",
+      "target": "increment-1", 
+      "sourceHandle": "variable",
+      "targetHandle": "b"
+    },
+    {
+      "id": "e13",
+      "source": "increment-1",
+      "target": "counter-1",
+      "sourceHandle": "result",
+      "targetHandle": "value"
+    },
+    {
+      "id": "e14",
+      "source": "counter-1",
+      "target": "update-text-1",
+      "sourceHandle": "variable",
+      "targetHandle": "a"
+    },
+    {
+      "id": "e15",
+      "source": "title-text-1",
+      "target": "update-text-1",
+      "sourceHandle": "result",
+      "targetHandle": "b"
+    },
+    {
+      "id": "e16",
+      "source": "update-text-1",
+      "target": "label-1",
+      "sourceHandle": "result",
+      "targetHandle": "text"
+    },
+    {
+      "id": "e17",
+      "source": "loop-1",
+      "target": "sleep-1",
+      "sourceHandle": "loop", 
+      "targetHandle": "seconds"
+    },
+    {
+      "id": "e18",
+      "source": "window-1",
+      "target": "mainloop-1",
+      "sourceHandle": "window",
+      "targetHandle": "window"
+    }
+  ],
+  "language": "python"
+}
