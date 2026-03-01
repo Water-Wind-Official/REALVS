@@ -1,6 +1,11 @@
 import { Node, Edge } from 'reactflow'
 
 export function generateCode(nodes: Node[], edges: Edge[], language: 'python' | 'csharp'): string {
+  // Safety check: ensure nodes and edges are arrays
+  if (!Array.isArray(nodes) || !Array.isArray(edges)) {
+    return language === 'python' ? '# Error: Invalid node/edge data' : '// Error: Invalid node/edge data'
+  }
+  
   if (language === 'python') {
     return generatePythonCode(nodes, edges)
   } else {
@@ -94,6 +99,18 @@ function generatePythonCode(nodes: Node[], edges: Edge[]): string {
 
       case 'Boolean Value':
         nodeCode = nodeData.value || 'False'
+        break
+
+      case 'Position':
+        nodeCode = nodeData.value ? `"${nodeData.value}"` : '"0,0"'
+        break
+
+      case 'Size':
+        nodeCode = nodeData.value ? `"${nodeData.value}"` : '"100x100"'
+        break
+
+      case 'Color':
+        nodeCode = nodeData.value ? `"${nodeData.value}"` : '"black"'
         break
 
       case 'Print':

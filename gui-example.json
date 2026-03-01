@@ -1,0 +1,155 @@
+{
+  "nodes": [
+    {
+      "id": "start-1",
+      "type": "customNode",
+      "position": { "x": 50, "y": 50 },
+      "data": {
+        "id": "start-1",
+        "label": "Start",
+        "category": "control",
+        "inputs": [],
+        "outputs": ["flow"]
+      }
+    },
+    {
+      "id": "title-1",
+      "type": "customNode", 
+      "position": { "x": 250, "y": 30 },
+      "data": {
+        "id": "title-1",
+        "label": "String Value",
+        "category": "data",
+        "inputs": [],
+        "outputs": ["value"],
+        "value": "My Awesome GUI App"
+      }
+    },
+    {
+      "id": "size-1",
+      "type": "customNode",
+      "position": { "x": 250, "y": 120 },
+      "data": {
+        "id": "size-1", 
+        "label": "String Value",
+        "category": "data",
+        "inputs": [],
+        "outputs": ["value"],
+        "value": "800x600"
+      }
+    },
+    {
+      "id": "window-1",
+      "type": "customNode",
+      "position": { "x": 500, "y": 80 },
+      "data": {
+        "id": "window-1",
+        "label": "Tkinter Window",
+        "category": "gui",
+        "inputs": ["title", "size"],
+        "outputs": ["window"]
+      }
+    },
+    {
+      "id": "label-1",
+      "type": "customNode",
+      "position": { "x": 750, "y": 50 },
+      "data": {
+        "id": "label-1",
+        "label": "String Value",
+        "category": "data", 
+        "inputs": [],
+        "outputs": ["value"],
+        "value": "Welcome to my GUI!"
+      }
+    },
+    {
+      "id": "label-pos-1",
+      "type": "customNode",
+      "position": { "x": 750, "y": 140 },
+      "data": {
+        "id": "label-pos-1",
+        "label": "Position",
+        "category": "data",
+        "inputs": [],
+        "outputs": ["position"], 
+        "value": "50,50"
+      }
+    },
+    {
+      "id": "tkinter-label-1",
+      "type": "customNode",
+      "position": { "x": 1000, "y": 100 },
+      "data": {
+        "id": "tkinter-label-1",
+        "label": "Label",
+        "category": "gui",
+        "inputs": ["window", "text", "position"],
+        "outputs": []
+      }
+    },
+    {
+      "id": "mainloop-1",
+      "type": "customNode",
+      "position": { "x": 500, "y": 200 },
+      "data": {
+        "id": "mainloop-1",
+        "label": "Tkinter Main Loop",
+        "category": "gui",
+        "inputs": ["window"],
+        "outputs": []
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "start-1",
+      "target": "window-1",
+      "sourceHandle": "flow",
+      "targetHandle": "title"
+    },
+    {
+      "id": "e2", 
+      "source": "title-1",
+      "target": "window-1",
+      "sourceHandle": "value",
+      "targetHandle": "title"
+    },
+    {
+      "id": "e3",
+      "source": "size-1", 
+      "target": "window-1",
+      "sourceHandle": "value",
+      "targetHandle": "size"
+    },
+    {
+      "id": "e4",
+      "source": "window-1",
+      "target": "tkinter-label-1",
+      "sourceHandle": "window",
+      "targetHandle": "window"
+    },
+    {
+      "id": "e5",
+      "source": "label-1",
+      "target": "tkinter-label-1", 
+      "sourceHandle": "value",
+      "targetHandle": "text"
+    },
+    {
+      "id": "e6",
+      "source": "label-pos-1",
+      "target": "tkinter-label-1",
+      "sourceHandle": "position", 
+      "targetHandle": "position"
+    },
+    {
+      "id": "e7",
+      "source": "window-1",
+      "target": "mainloop-1",
+      "sourceHandle": "window",
+      "targetHandle": "window"
+    }
+  ]
+}

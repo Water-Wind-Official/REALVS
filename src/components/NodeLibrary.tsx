@@ -37,6 +37,30 @@ const nodeTemplates = [
     description: 'True or False'
   },
   {
+    id: 'position',
+    label: 'Position',
+    category: 'data',
+    inputs: [],
+    outputs: ['position'],
+    description: 'X,Y coordinates (e.g., "10,20")'
+  },
+  {
+    id: 'size',
+    label: 'Size',
+    category: 'data',
+    inputs: [],
+    outputs: ['size'],
+    description: 'Width x Height (e.g., "200x100")'
+  },
+  {
+    id: 'color',
+    label: 'Color',
+    category: 'data',
+    inputs: [],
+    outputs: ['color'],
+    description: 'Color name or hex (e.g., "red", "#FF0000")'
+  },
+  {
     id: 'variable',
     label: 'Variable',
     category: 'data',
