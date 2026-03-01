@@ -719,7 +719,9 @@ export const nodeDefinitions: NodeTemplate[] = [
       { id: 'flow', label: 'Flow', type: 'flow' },
       { id: 'window', label: 'Window', type: 'widget' },
     ],
-    outputs: [],
+    outputs: [
+      { id: 'flow', label: 'Flow', type: 'flow' },
+    ],
   },
 
   // ═══════════ NETWORK & JSON ═══════════════════════════════════════════════

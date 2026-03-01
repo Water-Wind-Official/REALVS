@@ -433,3 +433,7 @@ You now understand how to use REALVS to build GUIs intuitively.
 
 Happy building! 🚀
 
+---
+
+<small>*Sanctum Network Productions: [Seven Dollar Personal Websites!](https://sanctumnetwork.com/)*</small>
+
