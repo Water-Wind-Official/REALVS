@@ -1,0 +1,164 @@
+{
+  "nodes": [
+    {
+      "id": "start-1",
+      "type": "vsNode",
+      "position": { "x": 50, "y": 100 },
+      "data": {
+        "templateId": "start",
+        "label": "Start",
+        "category": "flow",
+        "configValues": {}
+      }
+    },
+    {
+      "id": "window-1",
+      "type": "vsNode",
+      "position": { "x": 250, "y": 50 },
+      "data": {
+        "templateId": "gui-window",
+        "label": "Window",
+        "category": "gui",
+        "configValues": {
+          "title": "My GUI App",
+          "width": "400",
+          "height": "300"
+        }
+      }
+    },
+    {
+      "id": "label-1",
+      "type": "vsNode",
+      "position": { "x": 500, "y": 30 },
+      "data": {
+        "templateId": "gui-label",
+        "label": "Label",
+        "category": "gui",
+        "configValues": {
+          "text": "Welcome to REALVS!",
+          "fontSize": "14"
+        }
+      }
+    },
+    {
+      "id": "button-1",
+      "type": "vsNode",
+      "position": { "x": 500, "y": 120 },
+      "data": {
+        "templateId": "gui-button",
+        "label": "Button",
+        "category": "gui",
+        "configValues": {
+          "text": "Click Me"
+        }
+      }
+    },
+    {
+      "id": "text-input-1",
+      "type": "vsNode",
+      "position": { "x": 500, "y": 210 },
+      "data": {
+        "templateId": "gui-entry",
+        "label": "Text Input",
+        "category": "gui",
+        "configValues": {
+          "width": "20"
+        }
+      }
+    },
+    {
+      "id": "mainloop-1",
+      "type": "vsNode",
+      "position": { "x": 750, "y": 120 },
+      "data": {
+        "templateId": "gui-mainloop",
+        "label": "Main Loop",
+        "category": "gui",
+        "configValues": {}
+      }
+    },
+    {
+      "id": "end-1",
+      "type": "vsNode",
+      "position": { "x": 950, "y": 120 },
+      "data": {
+        "templateId": "end",
+        "label": "End",
+        "category": "flow",
+        "configValues": {}
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-start-window",
+      "source": "start-1",
+      "sourceHandle": "flow",
+      "target": "window-1",
+      "targetHandle": "flow"
+    },
+    {
+      "id": "edge-window-label",
+      "source": "window-1",
+      "sourceHandle": "flow",
+      "target": "label-1",
+      "targetHandle": "flow"
+    },
+    {
+      "id": "edge-window-parent-label",
+      "source": "window-1",
+      "sourceHandle": "window",
+      "target": "label-1",
+      "targetHandle": "parent"
+    },
+    {
+      "id": "edge-label-button",
+      "source": "label-1",
+      "sourceHandle": "flow",
+      "target": "button-1",
+      "targetHandle": "flow"
+    },
+    {
+      "id": "edge-window-parent-button",
+      "source": "window-1",
+      "sourceHandle": "window",
+      "target": "button-1",
+      "targetHandle": "parent"
+    },
+    {
+      "id": "edge-button-input",
+      "source": "button-1",
+      "sourceHandle": "flow",
+      "target": "text-input-1",
+      "targetHandle": "flow"
+    },
+    {
+      "id": "edge-window-parent-input",
+      "source": "window-1",
+      "sourceHandle": "window",
+      "target": "text-input-1",
+      "targetHandle": "parent"
+    },
+    {
+      "id": "edge-input-mainloop",
+      "source": "text-input-1",
+      "sourceHandle": "flow",
+      "target": "mainloop-1",
+      "targetHandle": "flow"
+    },
+    {
+      "id": "edge-window-mainloop",
+      "source": "window-1",
+      "sourceHandle": "window",
+      "target": "mainloop-1",
+      "targetHandle": "window"
+    },
+    {
+      "id": "edge-mainloop-end",
+      "source": "mainloop-1",
+      "sourceHandle": "flow",
+      "target": "end-1",
+      "targetHandle": "flow"
+    }
+  ]
+}

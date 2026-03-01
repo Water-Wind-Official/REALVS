@@ -6,6 +6,7 @@ import React, { memo, useCallback } from 'react';
 import { Handle, Position, NodeProps } from 'reactflow';
 import { VSNodeData, PortDefinition, ConfigField, PORT_COLORS, CATEGORY_ICONS } from '../../types';
 import { useVisualScriptingStore } from '../../store/visualScriptingStore';
+import { nodeDefinitions } from '../../definitions/nodeDefinitions';
 
 /* ── Constants for layout calculation ─────────────────────────────────────── */
 const HEADER_H  = 30;
@@ -27,9 +28,12 @@ function CustomNodeInner({ id, data, selected }: NodeProps<VSNodeData>) {
   }, [id, removeNode]);
 
   const color    = data.color || '#6b7280';
-  const inputs   = data.inputs ?? [];
-  const outputs  = data.outputs ?? [];
-  const configs  = data.config ?? [];
+  
+  // Look up template definition to get config/inputs/outputs (important for loaded/imported nodes)
+  const template = nodeDefinitions.find((t) => t.id === data.templateId);
+  const inputs   = data.inputs || template?.inputs || [];
+  const outputs  = data.outputs || template?.outputs || [];
+  const configs  = data.config || template?.config || [];
   const maxPorts = Math.max(inputs.length, outputs.length);
 
   /* Compute handle Y positions */

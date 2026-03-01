@@ -6,6 +6,7 @@
 import { Trash2, Copy, Settings } from 'lucide-react';
 import { useVisualScriptingStore } from '../../store/visualScriptingStore';
 import { CATEGORY_LABELS, PORT_COLORS } from '../../types';
+import { nodeDefinitions } from '../../definitions/nodeDefinitions';
 
 export function PropertiesPanel() {
   const {
@@ -25,6 +26,12 @@ export function PropertiesPanel() {
   }
 
   const d = node.data;
+  
+  // Look up template definition to get config (important for loaded/imported nodes)
+  const template = nodeDefinitions.find((t) => t.id === d.templateId);
+  const config = d.config || template?.config || [];
+  const inputs = d.inputs || template?.inputs || [];
+  const outputs = d.outputs || template?.outputs || [];
 
   return (
     <div className="vs-props">
@@ -48,10 +55,10 @@ export function PropertiesPanel() {
       <p className="vs-props__desc">{d.description}</p>
 
       {/* inputs */}
-      {d.inputs.length > 0 && (
+      {inputs.length > 0 && (
         <div className="vs-props__section">
           <h4 className="vs-props__section-title">Inputs</h4>
-          {d.inputs.map((p) => (
+          {inputs.map((p) => (
             <div key={p.id} className="vs-props__port">
               <span className="vs-props__port-dot" style={{ background: PORT_COLORS[p.type] }} />
               <span className="vs-props__port-name">{p.label}</span>
@@ -62,10 +69,10 @@ export function PropertiesPanel() {
       )}
 
       {/* outputs */}
-      {d.outputs.length > 0 && (
+      {outputs.length > 0 && (
         <div className="vs-props__section">
           <h4 className="vs-props__section-title">Outputs</h4>
-          {d.outputs.map((p) => (
+          {outputs.map((p) => (
             <div key={p.id} className="vs-props__port">
               <span className="vs-props__port-dot" style={{ background: PORT_COLORS[p.type] }} />
               <span className="vs-props__port-name">{p.label}</span>
@@ -76,10 +83,10 @@ export function PropertiesPanel() {
       )}
 
       {/* config fields */}
-      {d.config && d.config.length > 0 && (
+      {config && config.length > 0 && (
         <div className="vs-props__section">
           <h4 className="vs-props__section-title">Configuration</h4>
-          {d.config.map((f) => (
+          {config.map((f) => (
             <div key={f.id} className="vs-props__field">
               <label className="vs-props__field-label">{f.label}</label>
               {f.type === 'select' ? (
