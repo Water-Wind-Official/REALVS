@@ -510,6 +510,26 @@ function flow(
       break;
     }
 
+    case 'set-property': {
+      const obj = getIn('object');
+      const prop = cfgOr(node, 'property', '');
+      const val = getIn('value');
+      if (lang === 'python') {
+        // Map property names to tkinter config names
+        const propMap: Record<string, string> = {
+          'text': 'text',
+          'bgColor': 'bg',
+          'bg': 'bg',
+          'label': 'text',
+          'title': 'title',
+        };
+        const tkProp = propMap[prop] || prop;
+        lines.push(`${p}${obj}.config(${tkProp}="${val}")`);
+      }
+      lines.push(...follow('flow'));
+      break;
+    }
+
     /* ── advanced ─────────────────────────────────────────────────────────── */
     case 'import-module': {
       const mod = cfgOr(node, 'module', '');

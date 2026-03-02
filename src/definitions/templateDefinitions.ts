@@ -388,8 +388,8 @@ export const counterAppTemplate: GuiTemplate = {
     { id: 'edge-window-button', source: 'node-window', target: 'node-button-increment', sourceHandle: 'window', targetHandle: 'parent' },
     // Flow: Label Instructions → Button
     { id: 'edge-label-instructions-button', source: 'node-label-instructions', target: 'node-button-increment', sourceHandle: 'flow', targetHandle: 'flow' },
-    // Button click → Math Add
-    { id: 'edge-button-add', source: 'node-button-increment', target: 'node-math-add', sourceHandle: 'onClick', targetHandle: null },
+    // Button click → Print statement
+    { id: 'edge-button-add', source: 'node-button-increment', target: 'node-update-label', sourceHandle: 'onClick', targetHandle: 'flow' },
     // Initial value (0) → Add
     { id: 'edge-zero-add', source: 'node-var-counter', target: 'node-math-add', sourceHandle: 'value', targetHandle: 'a' },
     // 1 → Add (increment by 1)
