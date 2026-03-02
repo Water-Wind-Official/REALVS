@@ -85,7 +85,11 @@ export function NodeLibraryPanel() {
           const isOpen = !collapsed[cat];
 
           return (
-            <div key={cat} className="vs-library__category">
+            <div
+              key={cat}
+              className="vs-library__category"
+              onMouseEnter={() => setCollapsed((prev) => ({ ...prev, [cat]: false }))}
+            >
               <button className="vs-library__cat-header" onClick={() => toggle(cat)}>
                 {isOpen ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
                 <span

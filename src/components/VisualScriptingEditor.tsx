@@ -25,11 +25,12 @@ import 'reactflow/dist/style.css';
 import { CustomNode } from './nodes/CustomNode';
 import { Toolbar } from './panels/Toolbar';
 import { NodeLibraryPanel } from './panels/NodeLibraryPanel';
+import { TemplatesPanel } from './panels/TemplatesPanel';
 import { PropertiesPanel } from './panels/PropertiesPanel';
 import { CodePreviewPanel } from './panels/CodePreviewPanel';
 import { useVisualScriptingStore } from '../store/visualScriptingStore';
 import { VSNodeData, NodeTemplate } from '../types';
-import { Code, Settings } from 'lucide-react';
+import { Code, Settings, Zap } from 'lucide-react';
 
 /* ── Node types registry ──────────────────────────────────────────────────── */
 const nodeTypes: NodeTypes = { vsNode: CustomNode };
@@ -175,25 +176,40 @@ export function VisualScriptingEditor() {
           </ReactFlow>
         </div>
 
-        {/* Right: Properties / Code tabs */}
+        {/* Right: Templates / Properties / Code tabs */}
         <div className="vs-right">
           <div className="vs-right__tabs">
             <button
+              className={`vs-right__tab ${rightPanelTab === 'templates' ? 'vs-right__tab--active' : ''}`}
+              onClick={() => setRightPanelTab('templates')}
+              title="Load a pre-built template"
+            >
+              <Zap size={14} /> Templates
+            </button>
+            <button
               className={`vs-right__tab ${rightPanelTab === 'properties' ? 'vs-right__tab--active' : ''}`}
               onClick={() => setRightPanelTab('properties')}
+              title="Edit selected node properties"
             >
               <Settings size={14} /> Properties
             </button>
             <button
               className={`vs-right__tab ${rightPanelTab === 'code' ? 'vs-right__tab--active' : ''}`}
               onClick={() => setRightPanelTab('code')}
+              title="Preview generated code"
             >
               <Code size={14} /> Code
             </button>
           </div>
 
           <div className="vs-right__content">
-            {rightPanelTab === 'properties' ? <PropertiesPanel /> : <CodePreviewPanel />}
+            {rightPanelTab === 'templates' ? (
+              <TemplatesPanel />
+            ) : rightPanelTab === 'properties' ? (
+              <PropertiesPanel />
+            ) : (
+              <CodePreviewPanel />
+            )}
           </div>
         </div>
       </div>

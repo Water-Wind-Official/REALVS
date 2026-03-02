@@ -21,7 +21,7 @@ export interface VisualScriptingState {
 
   // Selection / UI
   selectedNodeId: string | null;
-  rightPanelTab: 'properties' | 'code';
+  rightPanelTab: 'templates' | 'properties' | 'code';
   searchQuery: string;
   showMinimap: boolean;
   showGrid: boolean;
@@ -39,11 +39,12 @@ export interface VisualScriptingState {
   updateNodeConfig: (nodeId: string, key: string, value: string) => void;
   setLanguage: (l: 'python' | 'csharp') => void;
   setSelectedNodeId: (id: string | null) => void;
-  setRightPanelTab: (tab: 'properties' | 'code') => void;
+  setRightPanelTab: (tab: 'templates' | 'properties' | 'code') => void;
   setSearchQuery: (q: string) => void;
   toggleMinimap: () => void;
   toggleGrid: () => void;
   clearCanvas: () => void;
+  loadTemplate: (nodes: Node<VSNodeData>[], edges: Edge[]) => void;
 
   // History
   pushHistory: () => void;
@@ -58,7 +59,7 @@ export const useVisualScriptingStore = create<VisualScriptingState>((set, get) =
   language: 'python',
 
   selectedNodeId: null,
-  rightPanelTab: 'code',
+  rightPanelTab: 'templates',
   searchQuery: '',
   showMinimap: true,
   showGrid: true,
@@ -126,6 +127,11 @@ export const useVisualScriptingStore = create<VisualScriptingState>((set, get) =
   clearCanvas: () => {
     get().pushHistory();
     set({ nodes: [], edges: [], selectedNodeId: null });
+  },
+
+  loadTemplate: (templateNodes, templateEdges) => {
+    get().pushHistory();
+    set({ nodes: templateNodes, edges: templateEdges, selectedNodeId: null });
   },
 
   // ── History (undo / redo) ────────────────────────────────────────────────
