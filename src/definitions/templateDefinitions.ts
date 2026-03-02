@@ -48,7 +48,7 @@ export const counterAppTemplate: GuiTemplate = {
       type: 'vsNode',
       position: { x: 280, y: 50 },
       data: {
-        templateId: 'window',
+        templateId: 'gui-window',
         label: 'Window',
         category: 'gui',
         description: 'Create a new window for the application',
@@ -78,7 +78,7 @@ export const counterAppTemplate: GuiTemplate = {
       type: 'vsNode',
       position: { x: 540, y: 30 },
       data: {
-        templateId: 'label',
+        templateId: 'gui-label',
         label: 'Label',
         category: 'gui',
         description: 'Display text label',
@@ -107,7 +107,7 @@ export const counterAppTemplate: GuiTemplate = {
       type: 'vsNode',
       position: { x: 540, y: 130 },
       data: {
-        templateId: 'label',
+        templateId: 'gui-label',
         label: 'Label',
         category: 'gui',
         description: 'Display text label',
@@ -136,7 +136,7 @@ export const counterAppTemplate: GuiTemplate = {
       type: 'vsNode',
       position: { x: 540, y: 220 },
       data: {
-        templateId: 'button',
+        templateId: 'gui-button',
         label: 'Button',
         category: 'gui',
         description: 'Interactive button widget',
@@ -146,14 +146,14 @@ export const counterAppTemplate: GuiTemplate = {
         ],
         outputs: [
           { id: 'flow', label: 'Flow', type: 'flow' },
-          { id: 'clicked', label: 'On Click', type: 'flow' },
+          { id: 'onClick', label: 'On Click', type: 'flow' },
           { id: 'widget', label: 'Widget', type: 'widget' },
         ],
         config: [
-          { id: 'label', label: 'Label', type: 'text', defaultValue: 'Increment Counter' },
+          { id: 'text', label: 'Label', type: 'text', defaultValue: 'Increment Counter' },
         ],
         configValues: {
-          label: 'Increment Counter',
+          text: 'Increment Counter',
         },
         color: '#d946ef',
       } as VSNodeData,
@@ -185,7 +185,7 @@ export const counterAppTemplate: GuiTemplate = {
       type: 'vsNode',
       position: { x: 800, y: 180 },
       data: {
-        templateId: 'add',
+        templateId: 'math-add',
         label: 'Add',
         category: 'math',
         description: 'Add two numbers together',
@@ -228,7 +228,7 @@ export const counterAppTemplate: GuiTemplate = {
       type: 'vsNode',
       position: { x: 800, y: 320 },
       data: {
-        templateId: 'create-list',
+        templateId: 'list-create',
         label: 'Create List',
         category: 'collections',
         description: 'Create a list of items',
@@ -249,13 +249,13 @@ export const counterAppTemplate: GuiTemplate = {
       type: 'vsNode',
       position: { x: 1000, y: 280 },
       data: {
-        templateId: 'modulo',
+        templateId: 'math-modulo',
         label: 'Modulo',
         category: 'math',
-        description: 'Get remainder of division',
+        description: 'Get remainder after division (for cycling)',
         inputs: [
-          { id: 'a', label: 'Number', type: 'number' },
-          { id: 'b', label: 'Divisor', type: 'number' },
+          { id: 'a', label: 'A', type: 'number' },
+          { id: 'b', label: 'B', type: 'number' },
         ],
         outputs: [{ id: 'result', label: 'Result', type: 'number' }],
         configValues: {},
@@ -268,7 +268,7 @@ export const counterAppTemplate: GuiTemplate = {
       type: 'vsNode',
       position: { x: 1200, y: 280 },
       data: {
-        templateId: 'index-list',
+        templateId: 'list-get',
         label: 'Get Item',
         category: 'collections',
         description: 'Get item at index from list',
@@ -343,7 +343,7 @@ export const counterAppTemplate: GuiTemplate = {
       type: 'vsNode',
       position: { x: 1600, y: 100 },
       data: {
-        templateId: 'main-loop',
+        templateId: 'gui-mainloop',
         label: 'Main Loop',
         category: 'gui',
         description: 'Start the event loop (keep window open)',
@@ -389,7 +389,7 @@ export const counterAppTemplate: GuiTemplate = {
     // Flow: Label Instructions → Button
     { id: 'edge-label-instructions-button', source: 'node-label-instructions', target: 'node-button-increment', sourceHandle: 'flow', targetHandle: 'flow' },
     // Button click → Math Add
-    { id: 'edge-button-add', source: 'node-button-increment', target: 'node-math-add', sourceHandle: 'clicked', targetHandle: null },
+    { id: 'edge-button-add', source: 'node-button-increment', target: 'node-math-add', sourceHandle: 'onClick', targetHandle: null },
     // Initial value (0) → Add
     { id: 'edge-zero-add', source: 'node-var-counter', target: 'node-math-add', sourceHandle: 'value', targetHandle: 'a' },
     // 1 → Add (increment by 1)
@@ -454,7 +454,7 @@ export const websitePingerTemplate: GuiTemplate = {
       type: 'vsNode',
       position: { x: 280, y: 50 },
       data: {
-        templateId: 'window',
+        templateId: 'gui-window',
         label: 'Window',
         category: 'gui',
         description: 'Create a new window for the application',
@@ -484,7 +484,7 @@ export const websitePingerTemplate: GuiTemplate = {
       type: 'vsNode',
       position: { x: 540, y: 10 },
       data: {
-        templateId: 'label',
+        templateId: 'gui-label',
         label: 'Label',
         category: 'gui',
         description: 'Display text label',
@@ -513,7 +513,7 @@ export const websitePingerTemplate: GuiTemplate = {
       type: 'vsNode',
       position: { x: 540, y: 80 },
       data: {
-        templateId: 'text-input',
+        templateId: 'gui-entry',
         label: 'Text Input',
         category: 'gui',
         description: 'Text input field',
@@ -543,7 +543,7 @@ export const websitePingerTemplate: GuiTemplate = {
       type: 'vsNode',
       position: { x: 540, y: 160 },
       data: {
-        templateId: 'button',
+        templateId: 'gui-button',
         label: 'Button',
         category: 'gui',
         description: 'Interactive button widget',
@@ -553,14 +553,14 @@ export const websitePingerTemplate: GuiTemplate = {
         ],
         outputs: [
           { id: 'flow', label: 'Flow', type: 'flow' },
-          { id: 'clicked', label: 'On Click', type: 'flow' },
+          { id: 'onClick', label: 'On Click', type: 'flow' },
           { id: 'widget', label: 'Widget', type: 'widget' },
         ],
         config: [
-          { id: 'label', label: 'Label', type: 'text', defaultValue: 'Ping Website' },
+          { id: 'text', label: 'Label', type: 'text', defaultValue: 'Ping Website' },
         ],
         configValues: {
-          label: 'Ping Website',
+          text: 'Ping Website',
         },
         color: '#d946ef',
       } as VSNodeData,
@@ -571,7 +571,7 @@ export const websitePingerTemplate: GuiTemplate = {
       type: 'vsNode',
       position: { x: 540, y: 240 },
       data: {
-        templateId: 'label',
+        templateId: 'gui-label',
         label: 'Label',
         category: 'gui',
         description: 'Display text label',
@@ -600,7 +600,7 @@ export const websitePingerTemplate: GuiTemplate = {
       type: 'vsNode',
       position: { x: 800, y: 120 },
       data: {
-        templateId: 'http-request',
+        templateId: 'http-get',
         label: 'HTTP Request',
         category: 'network',
         description: 'Make HTTP request to URL',
@@ -720,7 +720,7 @@ export const websitePingerTemplate: GuiTemplate = {
       type: 'vsNode',
       position: { x: 1400, y: 100 },
       data: {
-        templateId: 'main-loop',
+        templateId: 'gui-mainloop',
         label: 'Main Loop',
         category: 'gui',
         description: 'Start the event loop (keep window open)',
@@ -766,7 +766,7 @@ export const websitePingerTemplate: GuiTemplate = {
     { id: 'edge-input-results', source: 'node-input-url', target: 'node-label-results', sourceHandle: 'flow', targetHandle: 'flow' },
     { id: 'edge-window-results-parent', source: 'node-window', target: 'node-label-results', sourceHandle: 'window', targetHandle: 'parent' },
     // Button click → HTTP Request
-    { id: 'edge-button-http', source: 'node-button-ping', target: 'node-http-request', sourceHandle: 'clicked', targetHandle: 'flow' },
+    { id: 'edge-button-http', source: 'node-button-ping', target: 'node-http-request', sourceHandle: 'onClick', targetHandle: 'flow' },
     // Input value → HTTP Request URL
     { id: 'edge-input-url-http', source: 'node-input-url', target: 'node-http-request', sourceHandle: 'value', targetHandle: 'url' },
     // Error handling on HTTP request
