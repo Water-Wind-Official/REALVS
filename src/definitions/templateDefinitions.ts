@@ -22,66 +22,109 @@ export interface GuiTemplate {
 
 export const counterAppTemplate: GuiTemplate = {
   id: 'template-counter-app',
-  label: 'Counter App',
-  description: 'Simple button that shows a message when clicked',
-  preview: 'Click the button to see a message appear',
+  label: 'Button Counter',
+  description: 'Button that tracks and displays the number of times it was clicked',
+  preview: 'Click the button to increment and display the counter',
   nodes: [
     // Start node
     {
       id: 'node-start',
       type: 'vsNode',
-      position: { x: 50, y: 150 },
+      position: { x: 50, y: 200 },
       data: {
         templateId: 'start',
         label: 'Start',
         category: 'flow',
-        description: 'Program entry point — execution begins here',
+        description: 'Program entry point',
         inputs: [],
         outputs: [{ id: 'flow', label: 'Flow', type: 'flow' }],
         configValues: {},
         color: '#8b5cf6',
       } as VSNodeData,
     },
-    // Create Window
+    // Initialize counter to 0
+    {
+      id: 'node-zero',
+      type: 'vsNode',
+      position: { x: 200, y: 150 },
+      data: {
+        templateId: 'number-literal',
+        label: 'Number',
+        category: 'data',
+        description: 'Initial counter value',
+        inputs: [],
+        outputs: [{ id: 'value', label: 'Value', type: 'number' }],
+        config: [
+          { id: 'value', label: 'Number', type: 'number', defaultValue: '0' },
+        ],
+        configValues: {
+          value: '0',
+        },
+        color: '#22c55e',
+      } as VSNodeData,
+    },
+    // Set counter variable
+    {
+      id: 'node-set-counter-init',
+      type: 'vsNode',
+      position: { x: 350, y: 150 },
+      data: {
+        templateId: 'set-variable',
+        label: 'Set Variable',
+        category: 'variables',
+        description: 'Initialize counter',
+        inputs: [
+          { id: 'flow', label: 'Flow', type: 'flow' },
+          { id: 'value', label: 'Value', type: 'any' },
+        ],
+        outputs: [{ id: 'flow', label: 'Flow', type: 'flow' }],
+        config: [
+          { id: 'name', label: 'Name', type: 'text', defaultValue: 'clicks' },
+        ],
+        configValues: {
+          name: 'clicks',
+        },
+        color: '#06b6d4',
+      } as VSNodeData,
+    },
+    // Window
     {
       id: 'node-window',
       type: 'vsNode',
-      position: { x: 250, y: 100 },
+      position: { x: 500, y: 100 },
       data: {
         templateId: 'gui-window',
         label: 'Window',
         category: 'gui',
-        description: 'Create a new window for the application',
+        description: 'Create a window',
         inputs: [{ id: 'flow', label: 'Flow', type: 'flow' }],
         outputs: [
           { id: 'flow', label: 'Flow', type: 'flow' },
           { id: 'window', label: 'Window', type: 'widget' },
         ],
         config: [
-          { id: 'title', label: 'Title', type: 'text', defaultValue: 'Button Demo' },
+          { id: 'title', label: 'Title', type: 'text', defaultValue: 'Click Counter' },
           { id: 'width', label: 'Width', type: 'number', defaultValue: '300' },
           { id: 'height', label: 'Height', type: 'number', defaultValue: '200' },
-          { id: 'bgColor', label: 'Background Color', type: 'color', defaultValue: '#f0f0f0' },
         ],
         configValues: {
-          title: 'Button Demo',
+          title: 'Click Counter',
           width: '300',
           height: '200',
-          bgColor: '#f0f0f0',
         },
         color: '#d946ef',
       } as VSNodeData,
     },
-    // Label: Counter Display
+    // Display label
     {
       id: 'node-label',
       type: 'vsNode',
-      position: { x: 500, y: 100 },
+      position: { x: 700, y: 100 },
       data: {
         templateId: 'gui-label',
         label: 'Label',
         category: 'gui',
-        description: 'Display text',
+        description: 'Display count',
         inputs: [
           { id: 'flow', label: 'Flow', type: 'flow' },
           { id: 'parent', label: 'Parent', type: 'widget' },
@@ -91,12 +134,12 @@ export const counterAppTemplate: GuiTemplate = {
           { id: 'widget', label: 'Widget', type: 'widget' },
         ],
         config: [
-          { id: 'text', label: 'Text', type: 'text', defaultValue: 'Click the button!' },
-          { id: 'fontSize', label: 'Font Size', type: 'number', defaultValue: '14' },
+          { id: 'text', label: 'Text', type: 'text', defaultValue: 'Clicks: 0' },
+          { id: 'fontSize', label: 'Font Size', type: 'number', defaultValue: '18' },
         ],
         configValues: {
-          text: 'Click the button!',
-          fontSize: '14',
+          text: 'Clicks: 0',
+          fontSize: '18',
         },
         color: '#d946ef',
       } as VSNodeData,
@@ -105,7 +148,7 @@ export const counterAppTemplate: GuiTemplate = {
     {
       id: 'node-button',
       type: 'vsNode',
-      position: { x: 500, y: 200 },
+      position: { x: 700, y: 200 },
       data: {
         templateId: 'gui-button',
         label: 'Button',
@@ -129,37 +172,100 @@ export const counterAppTemplate: GuiTemplate = {
         color: '#d946ef',
       } as VSNodeData,
     },
-    // Message text
+    // Get current counter
     {
-      id: 'node-message',
+      id: 'node-get-counter',
       type: 'vsNode',
-      position: { x: 750, y: 180 },
+      position: { x: 900, y: 180 },
       data: {
-        templateId: 'string-literal',
-        label: 'String',
-        category: 'data',
-        description: 'Text value',
+        templateId: 'get-variable',
+        label: 'Get Variable',
+        category: 'variables',
+        description: 'Get current click count',
         inputs: [],
-        outputs: [{ id: 'value', label: 'Value', type: 'string' }],
+        outputs: [{ id: 'value', label: 'Value', type: 'any' }],
         config: [
-          { id: 'value', label: 'Text', type: 'text', defaultValue: 'Button was clicked!' },
+          { id: 'name', label: 'Name', type: 'text', defaultValue: 'clicks' },
         ],
         configValues: {
-          value: 'Button was clicked!',
+          name: 'clicks',
+        },
+        color: '#06b6d4',
+      } as VSNodeData,
+    },
+    // Number 1
+    {
+      id: 'node-one',
+      type: 'vsNode',
+      position: { x: 900, y: 280 },
+      data: {
+        templateId: 'number-literal',
+        label: 'Number',
+        category: 'data',
+        description: 'Increment value',
+        inputs: [],
+        outputs: [{ id: 'value', label: 'Value', type: 'number' }],
+        config: [
+          { id: 'value', label: 'Number', type: 'number', defaultValue: '1' },
+        ],
+        configValues: {
+          value: '1',
         },
         color: '#22c55e',
       } as VSNodeData,
     },
-    // Set label text
+    // Add 1
     {
-      id: 'node-set-label',
+      id: 'node-add',
       type: 'vsNode',
-      position: { x: 950, y: 180 },
+      position: { x: 1050, y: 220 },
+      data: {
+        templateId: 'math-add',
+        label: 'Add',
+        category: 'math',
+        description: 'Increment counter',
+        inputs: [
+          { id: 'a', label: 'A', type: 'number' },
+          { id: 'b', label: 'B', type: 'number' },
+        ],
+        outputs: [{ id: 'result', label: 'Result', type: 'number' }],
+        configValues: {},
+        color: '#3b82f6',
+      } as VSNodeData,
+    },
+    // Format string
+    {
+      id: 'node-format',
+      type: 'vsNode',
+      position: { x: 1200, y: 220 },
+      data: {
+        templateId: 'string-format',
+        label: 'String Format',
+        category: 'string',
+        description: 'Format display text',
+        inputs: [
+          { id: 'value', label: 'Value', type: 'any' },
+        ],
+        outputs: [{ id: 'result', label: 'Result', type: 'string' }],
+        config: [
+          { id: 'format', label: 'Format String', type: 'text', defaultValue: 'Clicks: {0}' },
+        ],
+        configValues: {
+          format: 'Clicks: {0}',
+        },
+        color: '#10b981',
+      } as VSNodeData,
+    },
+    // Update label
+    {
+      id: 'node-update-label',
+      type: 'vsNode',
+      position: { x: 1350, y: 220 },
       data: {
         templateId: 'set-property',
         label: 'Set Property',
         category: 'gui',
-        description: 'Update widget property',
+        description: 'Update label',
         inputs: [
           { id: 'flow', label: 'Flow', type: 'flow' },
           { id: 'object', label: 'Object', type: 'widget' },
@@ -177,11 +283,35 @@ export const counterAppTemplate: GuiTemplate = {
         color: '#d946ef',
       } as VSNodeData,
     },
+    // Save new counter
+    {
+      id: 'node-save-counter',
+      type: 'vsNode',
+      position: { x: 1350, y: 320 },
+      data: {
+        templateId: 'set-variable',
+        label: 'Set Variable',
+        category: 'variables',
+        description: 'Save new counter value',
+        inputs: [
+          { id: 'flow', label: 'Flow', type: 'flow' },
+          { id: 'value', label: 'Value', type: 'any' },
+        ],
+        outputs: [{ id: 'flow', label: 'Flow', type: 'flow' }],
+        config: [
+          { id: 'name', label: 'Name', type: 'text', defaultValue: 'clicks' },
+        ],
+        configValues: {
+          name: 'clicks',
+        },
+        color: '#06b6d4',
+      } as VSNodeData,
+    },
     // Main loop
     {
       id: 'node-main-loop',
       type: 'vsNode',
-      position: { x: 1150, y: 150 },
+      position: { x: 1500, y: 150 },
       data: {
         templateId: 'gui-mainloop',
         label: 'Main Loop',
@@ -200,7 +330,7 @@ export const counterAppTemplate: GuiTemplate = {
     {
       id: 'node-end',
       type: 'vsNode',
-      position: { x: 1350, y: 150 },
+      position: { x: 1650, y: 150 },
       data: {
         templateId: 'end',
         label: 'End',
@@ -214,17 +344,32 @@ export const counterAppTemplate: GuiTemplate = {
     },
   ],
   edges: [
-    { id: 'e1', source: 'node-start', target: 'node-window', sourceHandle: 'flow', targetHandle: 'flow' },
-    { id: 'e2', source: 'node-window', target: 'node-label', sourceHandle: 'flow', targetHandle: 'flow' },
-    { id: 'e3', source: 'node-window', target: 'node-label', sourceHandle: 'window', targetHandle: 'parent' },
-    { id: 'e4', source: 'node-label', target: 'node-button', sourceHandle: 'flow', targetHandle: 'flow' },
-    { id: 'e5', source: 'node-window', target: 'node-button', sourceHandle: 'window', targetHandle: 'parent' },
-    { id: 'e6', source: 'node-button', target: 'node-set-label', sourceHandle: 'onClick', targetHandle: 'flow' },
-    { id: 'e7', source: 'node-message', target: 'node-set-label', sourceHandle: 'value', targetHandle: 'value' },
-    { id: 'e8', source: 'node-label', target: 'node-set-label', sourceHandle: 'widget', targetHandle: 'object' },
-    { id: 'e9', source: 'node-set-label', target: 'node-main-loop', sourceHandle: 'flow', targetHandle: 'flow' },
-    { id: 'e10', source: 'node-window', target: 'node-main-loop', sourceHandle: 'window', targetHandle: 'window' },
-    { id: 'e11', source: 'node-main-loop', target: 'node-end', sourceHandle: 'flow', targetHandle: 'flow' },
+    // Initialize counter
+    { id: 'e1', source: 'node-start', target: 'node-zero', sourceHandle: 'flow', targetHandle: null },
+    { id: 'e2', source: 'node-zero', target: 'node-set-counter-init', sourceHandle: 'value', targetHandle: 'value' },
+    { id: 'e3', source: 'node-start', target: 'node-set-counter-init', sourceHandle: 'flow', targetHandle: 'flow' },
+    // Create window and UI
+    { id: 'e4', source: 'node-set-counter-init', target: 'node-window', sourceHandle: 'flow', targetHandle: 'flow' },
+    { id: 'e5', source: 'node-window', target: 'node-label', sourceHandle: 'flow', targetHandle: 'flow' },
+    { id: 'e6', source: 'node-window', target: 'node-label', sourceHandle: 'window', targetHandle: 'parent' },
+    { id: 'e7', source: 'node-label', target: 'node-button', sourceHandle: 'flow', targetHandle: 'flow' },
+    { id: 'e8', source: 'node-window', target: 'node-button', sourceHandle: 'window', targetHandle: 'parent' },
+    // Button click handler: get counter and increment
+    { id: 'e9', source: 'node-button', target: 'node-get-counter', sourceHandle: 'onClick', targetHandle: null },
+    { id: 'e10', source: 'node-get-counter', target: 'node-add', sourceHandle: 'value', targetHandle: 'a' },
+    { id: 'e11', source: 'node-one', target: 'node-add', sourceHandle: 'value', targetHandle: 'b' },
+    // Format and display
+    { id: 'e12', source: 'node-add', target: 'node-format', sourceHandle: 'result', targetHandle: 'value' },
+    { id: 'e13', source: 'node-button', target: 'node-update-label', sourceHandle: 'onClick', targetHandle: 'flow' },
+    { id: 'e14', source: 'node-format', target: 'node-update-label', sourceHandle: 'result', targetHandle: 'value' },
+    { id: 'e15', source: 'node-label', target: 'node-update-label', sourceHandle: 'widget', targetHandle: 'object' },
+    // Save new value
+    { id: 'e16', source: 'node-update-label', target: 'node-save-counter', sourceHandle: 'flow', targetHandle: 'flow' },
+    { id: 'e17', source: 'node-add', target: 'node-save-counter', sourceHandle: 'result', targetHandle: 'value' },
+    // Main loop
+    { id: 'e18', source: 'node-save-counter', target: 'node-main-loop', sourceHandle: 'flow', targetHandle: 'flow' },
+    { id: 'e19', source: 'node-window', target: 'node-main-loop', sourceHandle: 'window', targetHandle: 'window' },
+    { id: 'e20', source: 'node-main-loop', target: 'node-end', sourceHandle: 'flow', targetHandle: 'flow' },
   ],
 };
 
