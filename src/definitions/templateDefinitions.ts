@@ -23,14 +23,14 @@ export interface GuiTemplate {
 export const counterAppTemplate: GuiTemplate = {
   id: 'template-counter-app',
   label: 'Counter App',
-  description: 'Interactive button counter with color-changing background',
-  preview: 'Click to increment the counter and cycle through colors',
+  description: 'Simple button that shows a message when clicked',
+  preview: 'Click the button to see a message appear',
   nodes: [
     // Start node
     {
       id: 'node-start',
       type: 'vsNode',
-      position: { x: 50, y: 80 },
+      position: { x: 50, y: 150 },
       data: {
         templateId: 'start',
         label: 'Start',
@@ -46,7 +46,7 @@ export const counterAppTemplate: GuiTemplate = {
     {
       id: 'node-window',
       type: 'vsNode',
-      position: { x: 280, y: 50 },
+      position: { x: 250, y: 100 },
       data: {
         templateId: 'gui-window',
         label: 'Window',
@@ -58,30 +58,30 @@ export const counterAppTemplate: GuiTemplate = {
           { id: 'window', label: 'Window', type: 'widget' },
         ],
         config: [
-          { id: 'title', label: 'Title', type: 'text', defaultValue: 'Counter App' },
-          { id: 'width', label: 'Width', type: 'number', defaultValue: '400' },
-          { id: 'height', label: 'Height', type: 'number', defaultValue: '300' },
-          { id: 'bgColor', label: 'Background Color', type: 'color', defaultValue: '#ffffff' },
+          { id: 'title', label: 'Title', type: 'text', defaultValue: 'Button Demo' },
+          { id: 'width', label: 'Width', type: 'number', defaultValue: '300' },
+          { id: 'height', label: 'Height', type: 'number', defaultValue: '200' },
+          { id: 'bgColor', label: 'Background Color', type: 'color', defaultValue: '#f0f0f0' },
         ],
         configValues: {
-          title: 'Counter App',
-          width: '400',
-          height: '300',
-          bgColor: '#ffffff',
+          title: 'Button Demo',
+          width: '300',
+          height: '200',
+          bgColor: '#f0f0f0',
         },
         color: '#d946ef',
       } as VSNodeData,
     },
     // Label: Counter Display
     {
-      id: 'node-label-display',
+      id: 'node-label',
       type: 'vsNode',
-      position: { x: 540, y: 30 },
+      position: { x: 500, y: 100 },
       data: {
         templateId: 'gui-label',
         label: 'Label',
         category: 'gui',
-        description: 'Display text label',
+        description: 'Display text',
         inputs: [
           { id: 'flow', label: 'Flow', type: 'flow' },
           { id: 'parent', label: 'Parent', type: 'widget' },
@@ -91,55 +91,26 @@ export const counterAppTemplate: GuiTemplate = {
           { id: 'widget', label: 'Widget', type: 'widget' },
         ],
         config: [
-          { id: 'text', label: 'Text', type: 'text', defaultValue: 'Counter: 0' },
-          { id: 'fontSize', label: 'Font Size', type: 'number', defaultValue: '24' },
+          { id: 'text', label: 'Text', type: 'text', defaultValue: 'Click the button!' },
+          { id: 'fontSize', label: 'Font Size', type: 'number', defaultValue: '14' },
         ],
         configValues: {
-          text: 'Counter: 0',
-          fontSize: '24',
+          text: 'Click the button!',
+          fontSize: '14',
         },
         color: '#d946ef',
       } as VSNodeData,
     },
-    // Label: Instructions
+    // Button
     {
-      id: 'node-label-instructions',
+      id: 'node-button',
       type: 'vsNode',
-      position: { x: 540, y: 130 },
-      data: {
-        templateId: 'gui-label',
-        label: 'Label',
-        category: 'gui',
-        description: 'Display text label',
-        inputs: [
-          { id: 'flow', label: 'Flow', type: 'flow' },
-          { id: 'parent', label: 'Parent', type: 'widget' },
-        ],
-        outputs: [
-          { id: 'flow', label: 'Flow', type: 'flow' },
-          { id: 'widget', label: 'Widget', type: 'widget' },
-        ],
-        config: [
-          { id: 'text', label: 'Text', type: 'text', defaultValue: 'Click the button below' },
-          { id: 'fontSize', label: 'Font Size', type: 'number', defaultValue: '12' },
-        ],
-        configValues: {
-          text: 'Click the button below',
-          fontSize: '12',
-        },
-        color: '#d946ef',
-      } as VSNodeData,
-    },
-    // Button: Increment
-    {
-      id: 'node-button-increment',
-      type: 'vsNode',
-      position: { x: 540, y: 220 },
+      position: { x: 500, y: 200 },
       data: {
         templateId: 'gui-button',
         label: 'Button',
         category: 'gui',
-        description: 'Interactive button widget',
+        description: 'Click button',
         inputs: [
           { id: 'flow', label: 'Flow', type: 'flow' },
           { id: 'parent', label: 'Parent', type: 'widget' },
@@ -150,147 +121,45 @@ export const counterAppTemplate: GuiTemplate = {
           { id: 'widget', label: 'Widget', type: 'widget' },
         ],
         config: [
-          { id: 'text', label: 'Label', type: 'text', defaultValue: 'Increment Counter' },
+          { id: 'text', label: 'Label', type: 'text', defaultValue: 'Click Me!' },
         ],
         configValues: {
-          text: 'Increment Counter',
+          text: 'Click Me!',
         },
         color: '#d946ef',
       } as VSNodeData,
     },
-    // Variable: Counter (Initialize to 0)
+    // Message text
     {
-      id: 'node-var-counter',
+      id: 'node-message',
       type: 'vsNode',
-      position: { x: 800, y: 80 },
+      position: { x: 750, y: 180 },
       data: {
-        templateId: 'number-literal',
-        label: 'Number',
+        templateId: 'string-literal',
+        label: 'String',
         category: 'data',
-        description: 'Create a number value',
+        description: 'Text value',
         inputs: [],
-        outputs: [{ id: 'value', label: 'Value', type: 'number' }],
+        outputs: [{ id: 'value', label: 'Value', type: 'string' }],
         config: [
-          { id: 'value', label: 'Number', type: 'number', defaultValue: '0' },
+          { id: 'value', label: 'Text', type: 'text', defaultValue: 'Button was clicked!' },
         ],
         configValues: {
-          value: '0',
+          value: 'Button was clicked!',
         },
         color: '#22c55e',
       } as VSNodeData,
     },
-    // Math: Add (for incrementing)
+    // Set label text
     {
-      id: 'node-math-add',
+      id: 'node-set-label',
       type: 'vsNode',
-      position: { x: 800, y: 180 },
-      data: {
-        templateId: 'math-add',
-        label: 'Add',
-        category: 'math',
-        description: 'Add two numbers together',
-        inputs: [
-          { id: 'a', label: 'A', type: 'number' },
-          { id: 'b', label: 'B', type: 'number' },
-        ],
-        outputs: [{ id: 'result', label: 'Result', type: 'number' }],
-        configValues: {},
-        color: '#3b82f6',
-      } as VSNodeData,
-    },
-    // String: Format (for display)
-    {
-      id: 'node-string-format',
-      type: 'vsNode',
-      position: { x: 1000, y: 130 },
-      data: {
-        templateId: 'string-format',
-        label: 'String Format',
-        category: 'string',
-        description: 'Format text with variable substitution',
-        inputs: [
-          { id: 'template', label: 'Template', type: 'string' },
-          { id: 'value', label: 'Value', type: 'any' },
-        ],
-        outputs: [{ id: 'result', label: 'Result', type: 'string' }],
-        config: [
-          { id: 'format', label: 'Format String', type: 'text', defaultValue: 'Counter: {0}' },
-        ],
-        configValues: {
-          format: 'Counter: {0}',
-        },
-        color: '#10b981',
-      } as VSNodeData,
-    },
-    // Create a list of colors for cycling
-    {
-      id: 'node-colors-list',
-      type: 'vsNode',
-      position: { x: 800, y: 320 },
-      data: {
-        templateId: 'list-create',
-        label: 'Create List',
-        category: 'collections',
-        description: 'Create a list of items',
-        inputs: [],
-        outputs: [{ id: 'list', label: 'List', type: 'list' }],
-        config: [
-          { id: 'items', label: 'Items (comma-separated)', type: 'textarea', defaultValue: '#FFE5E5,#E5F5FF,#E5FFE5,#FFFFE5,#FFE5FF' },
-        ],
-        configValues: {
-          items: '#FFE5E5,#E5F5FF,#E5FFE5,#FFFFE5,#FFE5FF',
-        },
-        color: '#a855f7',
-      } as VSNodeData,
-    },
-    // Modulo operation (to cycle through colors)
-    {
-      id: 'node-math-modulo',
-      type: 'vsNode',
-      position: { x: 1000, y: 280 },
-      data: {
-        templateId: 'math-modulo',
-        label: 'Modulo',
-        category: 'math',
-        description: 'Get remainder after division (for cycling)',
-        inputs: [
-          { id: 'a', label: 'A', type: 'number' },
-          { id: 'b', label: 'B', type: 'number' },
-        ],
-        outputs: [{ id: 'result', label: 'Result', type: 'number' }],
-        configValues: {},
-        color: '#3b82f6',
-      } as VSNodeData,
-    },
-    // Get Item from list (color selection)
-    {
-      id: 'node-get-item',
-      type: 'vsNode',
-      position: { x: 1200, y: 280 },
-      data: {
-        templateId: 'list-get',
-        label: 'Get Item',
-        category: 'collections',
-        description: 'Get item at index from list',
-        inputs: [
-          { id: 'list', label: 'List', type: 'list' },
-          { id: 'index', label: 'Index', type: 'number' },
-        ],
-        outputs: [{ id: 'item', label: 'Item', type: 'any' }],
-        configValues: {},
-        color: '#a855f7',
-      } as VSNodeData,
-    },
-    // Update Window background color
-    {
-      id: 'node-set-bg-color',
-      type: 'vsNode',
-      position: { x: 1400, y: 220 },
+      position: { x: 950, y: 180 },
       data: {
         templateId: 'set-property',
         label: 'Set Property',
         category: 'gui',
-        description: 'Set widget property',
+        description: 'Update widget property',
         inputs: [
           { id: 'flow', label: 'Flow', type: 'flow' },
           { id: 'object', label: 'Object', type: 'widget' },
@@ -298,35 +167,6 @@ export const counterAppTemplate: GuiTemplate = {
         ],
         outputs: [
           { id: 'flow', label: 'Flow', type: 'flow' },
-          { id: 'object', label: 'Object', type: 'widget' },
-        ],
-        config: [
-          { id: 'property', label: 'Property', type: 'text', defaultValue: 'bgColor' },
-        ],
-        configValues: {
-          property: 'bgColor',
-        },
-        color: '#d946ef',
-      } as VSNodeData,
-    },
-    // Update Label text (with new counter value)
-    {
-      id: 'node-update-label',
-      type: 'vsNode',
-      position: { x: 1400, y: 340 },
-      data: {
-        templateId: 'set-property',
-        label: 'Set Property',
-        category: 'gui',
-        description: 'Set widget property',
-        inputs: [
-          { id: 'flow', label: 'Flow', type: 'flow' },
-          { id: 'object', label: 'Object', type: 'widget' },
-          { id: 'value', label: 'Value', type: 'any' },
-        ],
-        outputs: [
-          { id: 'flow', label: 'Flow', type: 'flow' },
-          { id: 'object', label: 'Object', type: 'widget' },
         ],
         config: [
           { id: 'property', label: 'Property', type: 'text', defaultValue: 'text' },
@@ -337,16 +177,16 @@ export const counterAppTemplate: GuiTemplate = {
         color: '#d946ef',
       } as VSNodeData,
     },
-    // Main Loop
+    // Main loop
     {
       id: 'node-main-loop',
       type: 'vsNode',
-      position: { x: 1600, y: 100 },
+      position: { x: 1150, y: 150 },
       data: {
         templateId: 'gui-mainloop',
         label: 'Main Loop',
         category: 'gui',
-        description: 'Start the event loop (keep window open)',
+        description: 'Run event loop',
         inputs: [
           { id: 'flow', label: 'Flow', type: 'flow' },
           { id: 'window', label: 'Window', type: 'widget' },
@@ -360,12 +200,12 @@ export const counterAppTemplate: GuiTemplate = {
     {
       id: 'node-end',
       type: 'vsNode',
-      position: { x: 1800, y: 100 },
+      position: { x: 1350, y: 150 },
       data: {
         templateId: 'end',
         label: 'End',
         category: 'flow',
-        description: 'Program exit point',
+        description: 'End program',
         inputs: [{ id: 'flow', label: 'Flow', type: 'flow' }],
         outputs: [],
         configValues: {},
@@ -374,50 +214,17 @@ export const counterAppTemplate: GuiTemplate = {
     },
   ],
   edges: [
-    // Flow: Start → Window
-    { id: 'edge-start-window', source: 'node-start', target: 'node-window', sourceHandle: 'flow', targetHandle: 'flow' },
-    // Window parent → Label Display
-    { id: 'edge-window-label-display', source: 'node-window', target: 'node-label-display', sourceHandle: 'window', targetHandle: 'parent' },
-    // Flow: Window → Label Display
-    { id: 'edge-flow-window-label-display', source: 'node-window', target: 'node-label-display', sourceHandle: 'flow', targetHandle: 'flow' },
-    // Window parent → Label Instructions
-    { id: 'edge-window-label-instructions', source: 'node-window', target: 'node-label-instructions', sourceHandle: 'window', targetHandle: 'parent' },
-    // Flow: Label Display → Label Instructions
-    { id: 'edge-label-display-label-instructions', source: 'node-label-display', target: 'node-label-instructions', sourceHandle: 'flow', targetHandle: 'flow' },
-    // Window parent → Button
-    { id: 'edge-window-button', source: 'node-window', target: 'node-button-increment', sourceHandle: 'window', targetHandle: 'parent' },
-    // Flow: Label Instructions → Button
-    { id: 'edge-label-instructions-button', source: 'node-label-instructions', target: 'node-button-increment', sourceHandle: 'flow', targetHandle: 'flow' },
-    // Button click → Print statement
-    { id: 'edge-button-add', source: 'node-button-increment', target: 'node-update-label', sourceHandle: 'onClick', targetHandle: 'flow' },
-    // Initial value (0) → Add
-    { id: 'edge-zero-add', source: 'node-var-counter', target: 'node-math-add', sourceHandle: 'value', targetHandle: 'a' },
-    // 1 → Add (increment by 1)
-    { id: 'edge-one-add', source: 'node-var-counter', target: 'node-math-add', sourceHandle: 'value', targetHandle: 'b' },
-    // Add result → String Format
-    { id: 'edge-add-format', source: 'node-math-add', target: 'node-string-format', sourceHandle: 'result', targetHandle: 'value' },
-    // Formatted string → Update Label
-    { id: 'edge-format-update-label', source: 'node-string-format', target: 'node-update-label', sourceHandle: 'result', targetHandle: 'value' },
-    // Label widget → Update Label
-    { id: 'edge-label-widget-update', source: 'node-label-display', target: 'node-update-label', sourceHandle: 'widget', targetHandle: 'object' },
-    // Counter → Modulo
-    { id: 'edge-counter-modulo', source: 'node-math-add', target: 'node-math-modulo', sourceHandle: 'result', targetHandle: 'a' },
-    // Modulo → Get Item
-    { id: 'edge-modulo-getitem', source: 'node-math-modulo', target: 'node-get-item', sourceHandle: 'result', targetHandle: 'index' },
-    // Colors list → Get Item
-    { id: 'edge-colors-getitem', source: 'node-colors-list', target: 'node-get-item', sourceHandle: 'list', targetHandle: 'list' },
-    // Get Item → Set BG Color
-    { id: 'edge-color-setbg', source: 'node-get-item', target: 'node-set-bg-color', sourceHandle: 'item', targetHandle: 'value' },
-    // Window → Set BG Color
-    { id: 'edge-window-setbg', source: 'node-window', target: 'node-set-bg-color', sourceHandle: 'window', targetHandle: 'object' },
-    // Update Label → Set BG Color (flow)
-    { id: 'edge-update-setbg', source: 'node-update-label', target: 'node-set-bg-color', sourceHandle: 'flow', targetHandle: 'flow' },
-    // Set BG Color → Main Loop
-    { id: 'edge-setbg-mainloop', source: 'node-set-bg-color', target: 'node-main-loop', sourceHandle: 'flow', targetHandle: 'flow' },
-    // Window → Main Loop
-    { id: 'edge-window-mainloop', source: 'node-window', target: 'node-main-loop', sourceHandle: 'window', targetHandle: 'window' },
-    // Main Loop → End
-    { id: 'edge-mainloop-end', source: 'node-main-loop', target: 'node-end', sourceHandle: 'flow', targetHandle: 'flow' },
+    { id: 'e1', source: 'node-start', target: 'node-window', sourceHandle: 'flow', targetHandle: 'flow' },
+    { id: 'e2', source: 'node-window', target: 'node-label', sourceHandle: 'flow', targetHandle: 'flow' },
+    { id: 'e3', source: 'node-window', target: 'node-label', sourceHandle: 'window', targetHandle: 'parent' },
+    { id: 'e4', source: 'node-label', target: 'node-button', sourceHandle: 'flow', targetHandle: 'flow' },
+    { id: 'e5', source: 'node-window', target: 'node-button', sourceHandle: 'window', targetHandle: 'parent' },
+    { id: 'e6', source: 'node-button', target: 'node-set-label', sourceHandle: 'onClick', targetHandle: 'flow' },
+    { id: 'e7', source: 'node-message', target: 'node-set-label', sourceHandle: 'value', targetHandle: 'value' },
+    { id: 'e8', source: 'node-label', target: 'node-set-label', sourceHandle: 'widget', targetHandle: 'object' },
+    { id: 'e9', source: 'node-set-label', target: 'node-main-loop', sourceHandle: 'flow', targetHandle: 'flow' },
+    { id: 'e10', source: 'node-window', target: 'node-main-loop', sourceHandle: 'window', targetHandle: 'window' },
+    { id: 'e11', source: 'node-main-loop', target: 'node-end', sourceHandle: 'flow', targetHandle: 'flow' },
   ],
 };
 

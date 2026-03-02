@@ -117,14 +117,33 @@ function expr(
       : `${getIn('text')}.Substring(${getIn('start')}, ${getIn('end')})`;
     case 'to-string':    return lang === 'python' ? `str(${getIn('value')})` : `${getIn('value')}.ToString()`;
     case 'string-format': {
-      const tpl = cfgOr(node, 'template', '{} {}');
-      return lang === 'python'
-        ? `"${tpl}".format(${getIn('value1')}, ${getIn('value2')})`
-        : `string.Format("${tpl}", ${getIn('value1')}, ${getIn('value2')})`;
+      const fmt = cfgOr(node, 'format', '{0}');
+      const val1 = getIn('value1');
+      const val2 = getIn('value2');
+      const val = getIn('value');
+      const hasMultiple = val1 !== nil(lang) && val2 !== nil(lang);
+      if (hasMultiple) {
+        return lang === 'python'
+          ? `"${fmt}".format(${val1}, ${val2})`
+          : `string.Format("${fmt}", ${val1}, ${val2})`;
+      } else {
+        return lang === 'python'
+          ? `"${fmt}".format(${val})`
+          : `string.Format("${fmt}", ${val})`;
+      }
     }
 
     // ── Collections (data outputs) ────────────────────────────────────────
-    case 'list-create':   return lang === 'python' ? '[]' : 'new List<object>()';
+    case 'list-create': {
+      const items = cfgOr(node, 'items', '');
+      if (lang === 'python') {
+        if (!items) return '[]';
+        const itemList = items.split(',').map(item => `"${item.trim()}"`).join(', ');
+        return `[${itemList}]`;
+      } else {
+        return 'new List<object>()';
+      }
+    }
     case 'list-get':      return `${getIn('list')}[${getIn('index')}]`;
     case 'list-length':   return lang === 'python' ? `len(${getIn('list')})` : `${getIn('list')}.Count`;
     case 'list-sort':     return lang === 'python' ? `sorted(${getIn('list')})` : `${getIn('list')}.OrderBy(x => x).ToList()`;
@@ -524,7 +543,10 @@ function flow(
           'title': 'title',
         };
         const tkProp = propMap[prop] || prop;
-        lines.push(`${p}${obj}.config(${tkProp}="${val}")`);
+        // Check if value looks like a string literal (starts and ends with quotes) or is an expression
+        const needsQuotes = val === nil(lang) || (val !== 'None' && !val.startsWith('"') && !val.startsWith('[') && !/^\d+$/.test(val));
+        const finalVal = needsQuotes && val !== nil(lang) ? `"${val}"` : val;
+        lines.push(`${p}${obj}.config(${tkProp}=${finalVal})`);
       }
       lines.push(...follow('flow'));
       break;
