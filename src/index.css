@@ -156,7 +156,68 @@ body {
 .vs-library__cat-label { flex: 1; text-align: left; }
 .vs-library__cat-count { font-size: 10px; color: var(--text-3); }
 
+.vs-library__cat-content { padding: 0; }
 .vs-library__cat-items { padding: 0 6px 4px; animation: slideDown .2s ease-out; }
+
+/* ── Special sections (Favorites, Recently Used) ─────────────────────────── */
+.vs-library__section { margin-bottom: 6px; border-top: 1px solid var(--border); }
+.vs-library__section:first-child { border-top: none; }
+
+.vs-library__section-header {
+  display: flex; align-items: center; gap: 5px;
+  width: 100%; padding: 8px 12px;
+  background: linear-gradient(90deg, var(--bg-surface) 0%, transparent 100%);
+  border: none; color: var(--accent);
+  font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em;
+  cursor: pointer; transition: all .15s;
+}
+.vs-library__section-header:hover { background: linear-gradient(90deg, var(--bg-raised) 0%, transparent 100%); color: var(--text); }
+.vs-library__section-icon { flex-shrink: 0; }
+.vs-library__section-title { flex: 1; text-align: left; }
+.vs-library__section-count { font-size: 10px; color: var(--text-3); margin-right: 4px; }
+
+.vs-library__section-items { padding: 2px 6px 6px; animation: slideDown .2s ease-out; }
+
+/* ── Subcategories ──────────────────────────────────────────────────────── */
+.vs-library__subcat { margin-bottom: 2px; }
+.vs-library__subcat-header {
+  display: flex; align-items: center; gap: 6px;
+  width: 100%; padding: 5px 20px;
+  background: transparent; border: none; color: var(--text-3);
+  font-size: 10px; font-weight: 500; letter-spacing: .02em;
+  cursor: pointer; transition: all .12s;
+}
+.vs-library__subcat-header:hover { background: rgba(99,102,241,.08); color: var(--text-2); }
+.vs-library__subcat-name { flex: 1; }
+.vs-library__subcat-count { font-size: 9px; color: var(--text-3); }
+.vs-library__subcat-items { padding: 0 12px 2px; animation: slideDown .15s ease-out; }
+
+/* ── Node items (with favorites button) ──────────────────────────────────── */
+.vs-library__item {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 6px 8px; border-radius: 6px;
+  cursor: grab; user-select: none;
+  transition: background .12s;
+  position: relative;
+}
+.vs-library__item:hover { background: var(--bg-surface); }
+.vs-library__item:active { cursor: grabbing; }
+.vs-library__item-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+.vs-library__item-info { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+.vs-library__item-name { font-size: 12px; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.vs-library__item-desc { font-size: 10px; color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.vs-library__item-favorite {
+  opacity: 0;
+  display: flex; align-items: center; justify-content: center;
+  width: 18px; height: 18px; flex-shrink: 0;
+  background: transparent; border: none; color: var(--text-3);
+  cursor: pointer; transition: all .15s;
+  padding: 0; margin: 0;
+}
+.vs-library__item:hover .vs-library__item-favorite { opacity: 1; }
+.vs-library__item-favorite:hover { color: var(--accent); }
+.vs-library__item-favorite--active { opacity: 1; color: var(--accent); }
 
 @keyframes slideDown {
   from {

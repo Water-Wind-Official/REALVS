@@ -10,19 +10,22 @@ export const nodeDefinitions: NodeTemplate[] = [
   // ═══════════ FLOW CONTROL ═══════════════════════════════════════════════════
   {
     id: 'start', label: 'Start', category: 'flow', color: '#8b5cf6',
-    description: 'Program entry point — execution begins here',
+    description: '🎯 Where your program begins (always drag this first)',
+    tags: ['entry', 'beginning', 'entry-point'],
     inputs: [],
     outputs: [{ id: 'flow', label: 'Flow', type: 'flow' }],
   },
   {
     id: 'end', label: 'End', category: 'flow', color: '#8b5cf6',
-    description: 'Program exit point',
+    description: '🏁 Where your program finishes',
+    tags: ['exit', 'finish', 'end-point'],
     inputs: [{ id: 'flow', label: 'Flow', type: 'flow' }],
     outputs: [],
   },
   {
     id: 'if-else', label: 'If / Else', category: 'flow', color: '#8b5cf6',
-    description: 'Conditional branching — runs True or False branch',
+    description: '❓ Check a condition, choose which path to take',
+    tags: ['condition', 'decision', 'branch'],
     inputs: [
       { id: 'flow', label: 'Flow', type: 'flow' },
       { id: 'condition', label: 'Condition', type: 'boolean' },
@@ -34,7 +37,8 @@ export const nodeDefinitions: NodeTemplate[] = [
   },
   {
     id: 'while-loop', label: 'While Loop', category: 'flow', color: '#8b5cf6',
-    description: 'Repeat while condition is true',
+    description: '🔁 Keep repeating until something changes',
+    tags: ['loop', 'repeat', 'iteration', 'condition'],
     inputs: [
       { id: 'flow', label: 'Flow', type: 'flow' },
       { id: 'condition', label: 'Condition', type: 'boolean' },
@@ -46,7 +50,8 @@ export const nodeDefinitions: NodeTemplate[] = [
   },
   {
     id: 'for-loop', label: 'For Loop', category: 'flow', color: '#8b5cf6',
-    description: 'Loop from start to end with step',
+    description: '📊 Repeat a specific number of times (count from 1 to 10, etc)',
+    tags: ['loop', 'repeat', 'iteration', 'count'],
     inputs: [
       { id: 'flow', label: 'Flow', type: 'flow' },
       { id: 'start', label: 'From', type: 'number' },
@@ -64,7 +69,8 @@ export const nodeDefinitions: NodeTemplate[] = [
   },
   {
     id: 'for-each', label: 'For Each', category: 'flow', color: '#8b5cf6',
-    description: 'Iterate over each item in a collection',
+    description: '📋 Process each item in a list one by one',
+    tags: ['loop', 'repeat', 'iteration', 'collection'],
     inputs: [
       { id: 'flow', label: 'Flow', type: 'flow' },
       { id: 'collection', label: 'Collection', type: 'list' },
@@ -81,18 +87,21 @@ export const nodeDefinitions: NodeTemplate[] = [
   {
     id: 'break', label: 'Break', category: 'flow', color: '#8b5cf6',
     description: 'Exit the current loop immediately',
+    tags: ['loop', 'exit', 'break'],
     inputs: [{ id: 'flow', label: 'Flow', type: 'flow' }],
     outputs: [],
   },
   {
     id: 'continue', label: 'Continue', category: 'flow', color: '#8b5cf6',
     description: 'Skip to the next loop iteration',
+    tags: ['loop', 'skip', 'iteration'],
     inputs: [{ id: 'flow', label: 'Flow', type: 'flow' }],
     outputs: [],
   },
   {
     id: 'comment', label: 'Comment', category: 'flow', color: '#8b5cf6',
     description: 'Add a code comment (no execution)',
+    tags: ['documentation', 'note', 'code'],
     inputs: [],
     outputs: [],
     config: [
@@ -103,7 +112,8 @@ export const nodeDefinitions: NodeTemplate[] = [
   // ═══════════ VARIABLES ══════════════════════════════════════════════════════
   {
     id: 'set-variable', label: 'Set Variable', category: 'variables', color: '#06b6d4',
-    description: 'Create or update a variable',
+    description: '💾 Save a value in a named container',
+    tags: ['variable', 'storage', 'set', 'assignment'],
     inputs: [
       { id: 'flow', label: 'Flow', type: 'flow' },
       { id: 'value', label: 'Value', type: 'any' },
@@ -115,7 +125,8 @@ export const nodeDefinitions: NodeTemplate[] = [
   },
   {
     id: 'get-variable', label: 'Get Variable', category: 'variables', color: '#06b6d4',
-    description: 'Read a variable\'s current value',
+    description: '📂 Retrieve a saved value by name',
+    tags: ['variable', 'retrieve', 'get', 'read'],
     inputs: [],
     outputs: [{ id: 'value', label: 'Value', type: 'any' }],
     config: [
@@ -126,7 +137,9 @@ export const nodeDefinitions: NodeTemplate[] = [
   // ═══════════ DATA TYPES ═════════════════════════════════════════════════════
   {
     id: 'string-literal', label: 'String', category: 'data', color: '#22c55e',
-    description: 'A text string value',
+    description: '📝 Create a text value',
+    subcategory: 'Literals',
+    tags: ['text', 'string', 'literal'],
     inputs: [],
     outputs: [{ id: 'value', label: 'Value', type: 'string' }],
     config: [
@@ -135,7 +148,9 @@ export const nodeDefinitions: NodeTemplate[] = [
   },
   {
     id: 'number-literal', label: 'Number', category: 'data', color: '#22c55e',
-    description: 'A numeric value (integer or float)',
+    description: '🔢 Create a numeric value (123, 45.67, etc)',
+    subcategory: 'Literals',
+    tags: ['number', 'numeric', 'literal', 'value'],
     inputs: [],
     outputs: [{ id: 'value', label: 'Value', type: 'number' }],
     config: [
@@ -144,7 +159,9 @@ export const nodeDefinitions: NodeTemplate[] = [
   },
   {
     id: 'boolean-literal', label: 'Boolean', category: 'data', color: '#22c55e',
-    description: 'True or False',
+    description: '✓ A yes/no switch (True or False)',
+    subcategory: 'Literals',
+    tags: ['boolean', 'true', 'false', 'literal'],
     inputs: [],
     outputs: [{ id: 'value', label: 'Value', type: 'boolean' }],
     config: [
@@ -156,7 +173,9 @@ export const nodeDefinitions: NodeTemplate[] = [
   },
   {
     id: 'null-literal', label: 'Null / None', category: 'data', color: '#22c55e',
-    description: 'Null (C#) or None (Python)',
+    description: '∅ Empty/nothing value',
+    subcategory: 'Literals',
+    tags: ['null', 'none', 'empty', 'literal'],
     inputs: [],
     outputs: [{ id: 'value', label: 'Value', type: 'any' }],
   },
@@ -164,7 +183,9 @@ export const nodeDefinitions: NodeTemplate[] = [
   // ═══════════ MATH ══════════════════════════════════════════════════════════
   {
     id: 'math-add', label: 'Add', category: 'math', color: '#3b82f6',
-    description: 'A + B',
+    description: '➕ Add two numbers together',
+    subcategory: 'Basic Operations',
+    tags: ['math', 'add', 'plus', 'arithmetic'],
     inputs: [
       { id: 'a', label: 'A', type: 'number' },
       { id: 'b', label: 'B', type: 'number' },
@@ -173,7 +194,7 @@ export const nodeDefinitions: NodeTemplate[] = [
   },
   {
     id: 'math-subtract', label: 'Subtract', category: 'math', color: '#3b82f6',
-    description: 'A − B',
+    description: '➖ Subtract one number from another',
     inputs: [
       { id: 'a', label: 'A', type: 'number' },
       { id: 'b', label: 'B', type: 'number' },
@@ -182,7 +203,7 @@ export const nodeDefinitions: NodeTemplate[] = [
   },
   {
     id: 'math-multiply', label: 'Multiply', category: 'math', color: '#3b82f6',
-    description: 'A × B',
+    description: '✖️ Multiply two numbers together',
     inputs: [
       { id: 'a', label: 'A', type: 'number' },
       { id: 'b', label: 'B', type: 'number' },
@@ -191,7 +212,7 @@ export const nodeDefinitions: NodeTemplate[] = [
   },
   {
     id: 'math-divide', label: 'Divide', category: 'math', color: '#3b82f6',
-    description: 'A ÷ B',
+    description: '➗ Divide one number by another',
     inputs: [
       { id: 'a', label: 'A', type: 'number' },
       { id: 'b', label: 'B', type: 'number' },
@@ -200,7 +221,7 @@ export const nodeDefinitions: NodeTemplate[] = [
   },
   {
     id: 'math-modulo', label: 'Modulo', category: 'math', color: '#3b82f6',
-    description: 'Remainder of A ÷ B',
+    description: '📊 Get the remainder after division',
     inputs: [
       { id: 'a', label: 'A', type: 'number' },
       { id: 'b', label: 'B', type: 'number' },
@@ -209,7 +230,7 @@ export const nodeDefinitions: NodeTemplate[] = [
   },
   {
     id: 'math-power', label: 'Power', category: 'math', color: '#3b82f6',
-    description: 'Base raised to Exponent',
+    description: '⚡ Raise number to a power (2³)',
     inputs: [
       { id: 'base', label: 'Base', type: 'number' },
       { id: 'exp', label: 'Exp', type: 'number' },
@@ -218,13 +239,13 @@ export const nodeDefinitions: NodeTemplate[] = [
   },
   {
     id: 'math-abs', label: 'Absolute', category: 'math', color: '#3b82f6',
-    description: 'Absolute value |x|',
+    description: '📏 Distance from zero (ignores negative)',
     inputs: [{ id: 'value', label: 'Value', type: 'number' }],
     outputs: [{ id: 'result', label: 'Result', type: 'number' }],
   },
   {
     id: 'math-min', label: 'Min', category: 'math', color: '#3b82f6',
-    description: 'Smaller of A and B',
+    description: '🔽 Find the smaller number',
     inputs: [
       { id: 'a', label: 'A', type: 'number' },
       { id: 'b', label: 'B', type: 'number' },
@@ -233,7 +254,7 @@ export const nodeDefinitions: NodeTemplate[] = [
   },
   {
     id: 'math-max', label: 'Max', category: 'math', color: '#3b82f6',
-    description: 'Larger of A and B',
+    description: '🔼 Find the larger number',
     inputs: [
       { id: 'a', label: 'A', type: 'number' },
       { id: 'b', label: 'B', type: 'number' },
@@ -242,13 +263,13 @@ export const nodeDefinitions: NodeTemplate[] = [
   },
   {
     id: 'math-round', label: 'Round', category: 'math', color: '#3b82f6',
-    description: 'Round to nearest integer',
+    description: '🎯 Round to nearest whole number',
     inputs: [{ id: 'value', label: 'Value', type: 'number' }],
     outputs: [{ id: 'result', label: 'Result', type: 'number' }],
   },
   {
     id: 'math-sqrt', label: 'Square Root', category: 'math', color: '#3b82f6',
-    description: '√x',
+    description: '√ Square root calculation',
     inputs: [{ id: 'value', label: 'Value', type: 'number' }],
     outputs: [{ id: 'result', label: 'Result', type: 'number' }],
   },
@@ -443,6 +464,8 @@ export const nodeDefinitions: NodeTemplate[] = [
   {
     id: 'list-create', label: 'Create List', category: 'collections', color: '#a855f7',
     description: 'Create an empty list / array',
+    subcategory: 'Lists',
+    tags: ['list', 'array', 'collection', 'create'],
     inputs: [],
     outputs: [{ id: 'list', label: 'List', type: 'list' }],
   },
@@ -582,7 +605,7 @@ export const nodeDefinitions: NodeTemplate[] = [
   // ═══════════ INPUT / OUTPUT ════════════════════════════════════════════════
   {
     id: 'print', label: 'Print', category: 'io', color: '#f97316',
-    description: 'Output value to console',
+    description: '📤 Display text to the console/terminal',
     inputs: [
       { id: 'flow', label: 'Flow', type: 'flow' },
       { id: 'value', label: 'Value', type: 'any' },
@@ -652,7 +675,9 @@ export const nodeDefinitions: NodeTemplate[] = [
   // ═══════════ GUI (TKINTER — Python) ════════════════════════════════════════
   {
     id: 'gui-window', label: 'Window', category: 'gui', color: '#d946ef',
-    description: 'Create a Tkinter window',
+    description: '🪟 Create the main app window (all widgets go inside this)',
+    subcategory: 'Containers',
+    tags: ['gui', 'window', 'ui', 'tkinter', 'app'],
     inputs: [{ id: 'flow', label: 'Flow', type: 'flow' }],
     outputs: [
       { id: 'flow', label: 'Flow', type: 'flow' },
@@ -666,7 +691,9 @@ export const nodeDefinitions: NodeTemplate[] = [
   },
   {
     id: 'gui-label', label: 'Label', category: 'gui', color: '#d946ef',
-    description: 'Add a text label widget',
+    description: '📝 Display text that users can read (not editable)',
+    subcategory: 'Display',
+    tags: ['gui', 'label', 'text', 'display', 'ui'],
     inputs: [
       { id: 'flow', label: 'Flow', type: 'flow' },
       { id: 'parent', label: 'Parent', type: 'widget' },
@@ -682,7 +709,9 @@ export const nodeDefinitions: NodeTemplate[] = [
   },
   {
     id: 'gui-button', label: 'Button', category: 'gui', color: '#d946ef',
-    description: 'Add a clickable button widget',
+    description: '🔘 Clickable button (users click to trigger actions)',
+    subcategory: 'Input',
+    tags: ['gui', 'button', 'click', 'input', 'interactive'],
     inputs: [
       { id: 'flow', label: 'Flow', type: 'flow' },
       { id: 'parent', label: 'Parent', type: 'widget' },
@@ -698,7 +727,9 @@ export const nodeDefinitions: NodeTemplate[] = [
   },
   {
     id: 'gui-entry', label: 'Text Input', category: 'gui', color: '#d946ef',
-    description: 'Add a text entry field widget',
+    description: '⌨️ Text box where users can type data',
+    subcategory: 'Input',
+    tags: ['gui', 'textinput', 'form', 'input', 'field'],
     inputs: [
       { id: 'flow', label: 'Flow', type: 'flow' },
       { id: 'parent', label: 'Parent', type: 'widget' },
@@ -714,7 +745,9 @@ export const nodeDefinitions: NodeTemplate[] = [
   },
   {
     id: 'gui-mainloop', label: 'Main Loop', category: 'gui', color: '#d946ef',
-    description: 'Start the Tkinter event loop (blocks)',
+    description: '⚙️ Start the event loop (makes window stay open & respond to clicks)',
+    subcategory: 'Events',
+    tags: ['gui', 'mainloop', 'event', 'loop', 'runtime'],
     inputs: [
       { id: 'flow', label: 'Flow', type: 'flow' },
       { id: 'window', label: 'Window', type: 'widget' },
@@ -727,7 +760,7 @@ export const nodeDefinitions: NodeTemplate[] = [
   // ═══════════ NETWORK & JSON ═══════════════════════════════════════════════
   {
     id: 'http-get', label: 'HTTP GET', category: 'network', color: '#14b8a6',
-    description: 'Make an HTTP GET request',
+    description: '📥 Fetch data from a website URL',
     inputs: [
       { id: 'flow', label: 'Flow', type: 'flow' },
       { id: 'url', label: 'URL', type: 'string' },

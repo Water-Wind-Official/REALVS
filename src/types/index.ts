@@ -39,11 +39,13 @@ export interface NodeTemplate {
   id: string;
   label: string;
   category: NodeCategory;
+  subcategory?: string; // e.g., "Containers", "Inputs", "Display" for GUI category
   description: string;
   inputs: PortDefinition[];
   outputs: PortDefinition[];
   config?: ConfigField[];
   color: string;
+  tags?: string[]; // Search tags: "form", "button", "ui", etc.
 }
 
 export interface VSNodeData {

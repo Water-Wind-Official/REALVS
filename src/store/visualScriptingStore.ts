@@ -25,6 +25,8 @@ export interface VisualScriptingState {
   searchQuery: string;
   showMinimap: boolean;
   showGrid: boolean;
+  recentlyUsedNodes: string[]; // node template IDs
+  favoriteNodes: string[]; // node template IDs
 
   // Undo / redo
   past: Snapshot[];
@@ -45,6 +47,8 @@ export interface VisualScriptingState {
   toggleGrid: () => void;
   clearCanvas: () => void;
   loadTemplate: (nodes: Node<VSNodeData>[], edges: Edge[]) => void;
+  addRecentlyUsed: (templateId: string) => void;
+  toggleFavorite: (templateId: string) => void;
 
   // History
   pushHistory: () => void;
@@ -63,6 +67,8 @@ export const useVisualScriptingStore = create<VisualScriptingState>((set, get) =
   searchQuery: '',
   showMinimap: true,
   showGrid: true,
+  recentlyUsedNodes: [],
+  favoriteNodes: [],
 
   past: [],
   future: [],
@@ -131,7 +137,23 @@ export const useVisualScriptingStore = create<VisualScriptingState>((set, get) =
 
   loadTemplate: (templateNodes, templateEdges) => {
     get().pushHistory();
-    set({ nodes: templateNodes, edges: templateEdges, selectedNodeId: null });
+    set({ nodes: templateNodes, edges: templateEdges, selectedNodeId: null, rightPanelTab: 'code' });
+  },
+
+  addRecentlyUsed: (templateId) => {
+    set((s) => {
+      const recent = [templateId, ...s.recentlyUsedNodes.filter((id) => id !== templateId)].slice(0, 10);
+      return { recentlyUsedNodes: recent };
+    });
+  },
+
+  toggleFavorite: (templateId) => {
+    set((s) => {
+      const favorites = s.favoriteNodes.includes(templateId)
+        ? s.favoriteNodes.filter((id) => id !== templateId)
+        : [...s.favoriteNodes, templateId];
+      return { favoriteNodes: favorites };
+    });
   },
 
   // ── History (undo / redo) ────────────────────────────────────────────────
