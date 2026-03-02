@@ -344,32 +344,31 @@ export const counterAppTemplate: GuiTemplate = {
     },
   ],
   edges: [
-    // Initialize counter
-    { id: 'e1', source: 'node-start', target: 'node-zero', sourceHandle: 'flow', targetHandle: null },
+    // Initialize counter flow
+    { id: 'e1', source: 'node-start', target: 'node-set-counter-init', sourceHandle: 'flow', targetHandle: 'flow' },
     { id: 'e2', source: 'node-zero', target: 'node-set-counter-init', sourceHandle: 'value', targetHandle: 'value' },
-    { id: 'e3', source: 'node-start', target: 'node-set-counter-init', sourceHandle: 'flow', targetHandle: 'flow' },
-    // Create window and UI
-    { id: 'e4', source: 'node-set-counter-init', target: 'node-window', sourceHandle: 'flow', targetHandle: 'flow' },
-    { id: 'e5', source: 'node-window', target: 'node-label', sourceHandle: 'flow', targetHandle: 'flow' },
-    { id: 'e6', source: 'node-window', target: 'node-label', sourceHandle: 'window', targetHandle: 'parent' },
-    { id: 'e7', source: 'node-label', target: 'node-button', sourceHandle: 'flow', targetHandle: 'flow' },
-    { id: 'e8', source: 'node-window', target: 'node-button', sourceHandle: 'window', targetHandle: 'parent' },
-    // Button click handler: get counter and increment
-    { id: 'e9', source: 'node-button', target: 'node-get-counter', sourceHandle: 'onClick', targetHandle: null },
-    { id: 'e10', source: 'node-get-counter', target: 'node-add', sourceHandle: 'value', targetHandle: 'a' },
-    { id: 'e11', source: 'node-one', target: 'node-add', sourceHandle: 'value', targetHandle: 'b' },
-    // Format and display
-    { id: 'e12', source: 'node-add', target: 'node-format', sourceHandle: 'result', targetHandle: 'value' },
-    { id: 'e13', source: 'node-button', target: 'node-update-label', sourceHandle: 'onClick', targetHandle: 'flow' },
-    { id: 'e14', source: 'node-format', target: 'node-update-label', sourceHandle: 'result', targetHandle: 'value' },
-    { id: 'e15', source: 'node-label', target: 'node-update-label', sourceHandle: 'widget', targetHandle: 'object' },
-    // Save new value
-    { id: 'e16', source: 'node-update-label', target: 'node-save-counter', sourceHandle: 'flow', targetHandle: 'flow' },
-    { id: 'e17', source: 'node-add', target: 'node-save-counter', sourceHandle: 'result', targetHandle: 'value' },
+    // Create window and UI flow
+    { id: 'e3', source: 'node-set-counter-init', target: 'node-window', sourceHandle: 'flow', targetHandle: 'flow' },
+    { id: 'e4', source: 'node-window', target: 'node-label', sourceHandle: 'flow', targetHandle: 'flow' },
+    { id: 'e5', source: 'node-window', target: 'node-label', sourceHandle: 'window', targetHandle: 'parent' },
+    { id: 'e6', source: 'node-label', target: 'node-button', sourceHandle: 'flow', targetHandle: 'flow' },
+    { id: 'e7', source: 'node-window', target: 'node-button', sourceHandle: 'window', targetHandle: 'parent' },
+    // Button click handler flow
+    { id: 'e8', source: 'node-button', target: 'node-update-label', sourceHandle: 'onClick', targetHandle: 'flow' },
+    // Data: get counter and increment
+    { id: 'e9', source: 'node-get-counter', target: 'node-add', sourceHandle: 'value', targetHandle: 'a' },
+    { id: 'e10', source: 'node-one', target: 'node-add', sourceHandle: 'value', targetHandle: 'b' },
+    // Format and update display
+    { id: 'e11', source: 'node-add', target: 'node-format', sourceHandle: 'result', targetHandle: 'value' },
+    { id: 'e12', source: 'node-format', target: 'node-update-label', sourceHandle: 'result', targetHandle: 'value' },
+    { id: 'e13', source: 'node-label', target: 'node-update-label', sourceHandle: 'widget', targetHandle: 'object' },
+    // Save new value after update
+    { id: 'e14', source: 'node-update-label', target: 'node-save-counter', sourceHandle: 'flow', targetHandle: 'flow' },
+    { id: 'e15', source: 'node-add', target: 'node-save-counter', sourceHandle: 'result', targetHandle: 'value' },
     // Main loop
-    { id: 'e18', source: 'node-save-counter', target: 'node-main-loop', sourceHandle: 'flow', targetHandle: 'flow' },
-    { id: 'e19', source: 'node-window', target: 'node-main-loop', sourceHandle: 'window', targetHandle: 'window' },
-    { id: 'e20', source: 'node-main-loop', target: 'node-end', sourceHandle: 'flow', targetHandle: 'flow' },
+    { id: 'e16', source: 'node-save-counter', target: 'node-main-loop', sourceHandle: 'flow', targetHandle: 'flow' },
+    { id: 'e17', source: 'node-window', target: 'node-main-loop', sourceHandle: 'window', targetHandle: 'window' },
+    { id: 'e18', source: 'node-main-loop', target: 'node-end', sourceHandle: 'flow', targetHandle: 'flow' },
   ],
 };
 
